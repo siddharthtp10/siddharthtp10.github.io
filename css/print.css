@@ -1,0 +1,82 @@
+/* Print: a one-page summary. Paper only, no diagram, no chrome. The project
+   features collapse to their opening paragraph; everything else is kept. */
+@page { size: A4; margin: 12mm 13mm; }
+
+:root, :root[data-theme], .ground-ink {
+  --paper: #fff; --paper-2: #fff; --text: #111820; --text-soft: #3E4753; --rule: #BFC5CB; --accent: #1E6B50;
+}
+html, body, .ground-ink { background: #fff !important; color: #111820 !important; }
+body { padding: 0 !important; font-size: 8.6pt; line-height: 1.38; }
+* { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+a { color: inherit; text-decoration: none; }
+
+.skip, .folio, .arch, .feature__after, .results__note, .feature__link, .colophon__small,
+.title-page__lede, .wipe, .status__dot, .kicker { display: none !important; }
+
+main {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 8mm;
+  align-items: start;
+}
+.chapter { padding: 0 !important; min-height: 0 !important; height: auto !important; break-inside: avoid; }
+.wrap, .title-page__inner { padding: 0 !important; max-width: none !important; margin: 0 !important; }
+
+/* header row */
+#top { grid-column: 1 / -1; display: block; padding-bottom: 3mm !important; }
+.title-page__name { font-size: 24pt; line-height: 1; letter-spacing: -0.02em; }
+.title-page__role { margin-top: 1.5mm; padding-top: 1.5mm; font-size: 10.5pt; }
+.title-page__meta { margin-top: 1.5mm; gap: 0 5mm; font-size: 8.4pt; color: #111820; }
+
+/* results across the page */
+#results { grid-column: 1 / -1; padding-bottom: 3mm !important; }
+.h2, .h3 { font-size: 11.5pt !important; line-height: 1.2; margin: 0 0 1.5mm !important; }
+.h1 { font-size: 11.5pt !important; margin: 0 !important; max-width: none !important; }
+.figures { margin-top: 1mm; grid-template-columns: repeat(4, 1fr) !important; column-gap: 4mm; }
+.figure { padding: 1.5mm 0 0; }
+.figure__n { font-size: 17pt; }
+.figure__unit { font-size: 8.4pt; }
+.figure dd { font-size: 8pt; }
+
+/* left column: experience; right column: projects, skills, certs, contact */
+#experience { grid-column: 1; grid-row: 3 / span 5; }
+#platform, #guardian, #validator, #skills, #contact { grid-column: 2; }
+#platform { grid-row: 3; } #guardian { grid-row: 4; } #validator { grid-row: 5; } #skills { grid-row: 6; } #contact { grid-row: 7; }
+
+.timeline { margin-top: 1mm; border: 0; }
+.role { display: block; padding: 0 0 2.5mm; border: 0; }
+.role__when { position: static; font-size: 8.4pt; font-family: inherit; color: #3E4753; }
+.role__title { font-size: 10pt; }
+.role__org { margin: 0; }
+.role ul { margin-top: 1mm; gap: 0.6mm; }
+
+.feature__intro, .feature-b__grid, .sidebar { padding: 0 !important; display: block; border: 0; margin: 0; max-width: none; }
+.feature__intro .standfirst, .feature-b__body .lede { font-size: 8.6pt; margin: 0.5mm 0 0; max-width: none; font-family: inherit; }
+.feature__body { margin: 0.8mm 0 0; max-width: none; gap: 0; }
+.feature__body p:not(:first-child), .feature-b__body > p:not(.lede) { display: none; }
+#platform, #guardian, #validator { margin-bottom: 2.5mm; }
+.status { margin: 0.5mm 0 0; padding: 0; border: 0; font-size: 8.4pt; }
+.feature-b__head .h2 { margin: 0 !important; }
+.sidebar > p:not(.kicker) { margin-top: 0.5mm; }
+.sidebar__facts { margin-top: 0.8mm; padding-top: 0; border: 0; gap: 0; display: block; }
+.sidebar__facts > div { display: inline; }
+.sidebar__facts > div + div::before { content: " · "; }
+.sidebar__facts dt, .sidebar__facts dd { display: inline; font: inherit; color: inherit; }
+.sidebar__facts dt::after { content: ": "; }
+
+.index-grid { display: block; }
+.index { margin-top: 0; border: 0; }
+.index > div { display: block; padding: 0.4mm 0; border: 0; }
+.index dt { display: inline; font-size: inherit; }
+.index dt::after { content: ": "; }
+.index dd { display: inline; color: #111820; }
+.certs { padding: 2.5mm 0 0; }
+.certs ul { margin: 0; gap: 0.6mm; }
+.certs li { border: 0; padding: 0; display: block; }
+.certs span::before { content: ", "; }
+
+.colophon { padding-top: 2.5mm !important; }
+.colophon__line { font-size: 8.6pt; max-width: none; font-family: inherit; margin: 0; }
+.certs span, .certs strong { font-size: inherit; }
+.colophon__line a, .sidebar > p, .feature__body p { color: #111820 !important; }
+.colophon__line a::after { content: none; }
