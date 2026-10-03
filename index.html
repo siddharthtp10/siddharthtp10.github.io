@@ -48,6 +48,7 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="assets/Siddharth_S_Resume.pdf" type="application/pdf">Resume (PDF, 145 KB)</a></li>
     </ul>
   </nav>
   <button class="theme-toggle" type="button" aria-pressed="false" hidden>
@@ -92,8 +93,8 @@
           <dd>supporting 15 to 20 releases a week.</dd>
         </div>
         <div class="figure">
-          <dt><span class="figure__n">45%</span><span class="figure__unit">faster recovery</span></dt>
-          <dd>mean time to recovery, with observability on New Relic, Elastic and CloudWatch.</dd>
+          <dt><span class="figure__n">45%</span><span class="figure__unit">lower mean time to recovery</span></dt>
+          <dd>with observability on New Relic, Elastic and CloudWatch.</dd>
         </div>
       </dl>
     </div>
@@ -164,7 +165,8 @@
             </li>
             <li class="cap" data-step="4">
               <h4>CI through GitHub OIDC</h4>
-              <p>Pull requests run fmt, validate, tflint and a Trivy scan, then a read-only plan posted as a comment with account IDs and IPs redacted. Plan and apply use separate short-lived roles; apply runs only from main, after approval in the <code>dev-apply</code> environment. No AWS keys are stored, and destroy never runs in CI.</p>
+              <!-- TODO: restore present tense after the first green CI run -->
+              <p>It is designed so that pull requests run fmt, validate, tflint and a Trivy scan, then post a read-only plan as a comment with account IDs and IPs redacted. Plan and apply use separate short-lived roles, and apply is designed to run only from main, after approval in the <code>dev-apply</code> environment. No AWS keys are stored, and destroy is deliberately kept out of CI.</p>
             </li>
             <li class="cap" data-step="5">
               <h4>GitOps with Flux</h4>
@@ -228,7 +230,7 @@
             <ul>
               <li>Automate EKS operations (RBAC, rollouts, node scaling) across four environments.</li>
               <li>Built self-service SSO access through GitHub Actions, replacing ticket-based grants.</li>
-              <li>Run blue-green deployments with Kustomize.</li>
+              <li>Automated Kustomize-based deployments on EKS, including environment-specific blue-green overlays.</li>
               <li>Build AI-assisted automation with MCP servers and custom Copilot and Claude agents.</li>
             </ul>
           </div>
@@ -256,19 +258,19 @@
       <div>
         <h2 id="skills-h" class="h2">Skills</h2>
         <dl class="index" data-sc-in>
-          <div><dt>Cloud and IaC</dt><dd>AWS, CloudFormation, Terraform (personal projects)</dd></div>
-          <!-- TODO: Containers list is limited to tools named in the brief. Add Docker, Helm etc. only if true. -->
-          <div><dt>Containers</dt><dd>Kubernetes, Amazon EKS, Kustomize, Flux</dd></div>
-          <div><dt>CI/CD</dt><dd>GitHub Actions, Jenkins, Bitbucket, Gradle, Maven</dd></div>
-          <div><dt>Observability</dt><dd>New Relic, Elastic, CloudWatch</dd></div>
-          <div><dt>AI-assisted automation</dt><dd>MCP servers, custom Copilot and Claude agents</dd></div>
-          <!-- TODO: Languages group. The brief names the group but not its contents; add e.g. <div><dt>Languages</dt><dd>...</dd></div> -->
+          <div><dt>Cloud and IaC</dt><dd>AWS (EKS, EC2, S3, EFS, VPC, IAM, KMS, Secrets Manager, CloudWatch, Route 53), CloudFormation, Terraform (personal projects)</dd></div>
+          <div><dt>Containers</dt><dd>Kubernetes, Amazon EKS, Docker, Helm, Kustomize, Flux, GitOps, RBAC, HPA/VPA, Amazon ECR</dd></div>
+          <div><dt>CI/CD</dt><dd>Jenkins, GitHub Actions, Bitbucket, Gradle, Maven, blue-green and canary deployments, FinOps</dd></div>
+          <div><dt>Observability and reliability</dt><dd>New Relic, Elastic, CloudWatch, SRE practices, incident and on-call management</dd></div>
+          <div><dt>AI-assisted automation</dt><dd>MCP servers, GitHub Copilot agent mode, Claude, custom agents</dd></div>
+          <div><dt>Languages and tooling</dt><dd>Python, Bash, Linux, Git, YAML, DevSecOps</dd></div>
         </dl>
       </div>
       <div class="certs">
         <h2 class="h3">Certifications</h2>
         <ul data-sc-in>
           <li><strong>Certified Kubernetes Administrator</strong><span>valid to December 2027</span></li>
+          <!-- TODO: update the AWS Solutions Architect Associate dates after renewal (expires Nov 2026) -->
           <li><strong>AWS Certified Solutions Architect, Associate</strong><span>November 2023 to November 2026</span></li>
         </ul>
       </div>
@@ -279,7 +281,7 @@
   <footer id="contact" class="chapter ground-ink colophon" data-chapter="Contact" aria-labelledby="contact-h">
     <div class="wrap">
       <h2 id="contact-h" class="h2">Contact</h2>
-      <p class="colophon__line">I'm looking for platform and DevOps roles in Bangalore. Write to me at <a href="mailto:siddharthtp10@gmail.com">siddharthtp10@gmail.com</a>, read my code at <a href="https://github.com/siddharthtp10">github.com/siddharthtp10</a>, or find me on <a href="https://www.linkedin.com/in/siddharthtps">LinkedIn</a>.</p>
+      <p class="colophon__line">I'm looking for platform and DevOps roles in Bangalore. Write to me at <a href="mailto:siddharthtp10@gmail.com">siddharthtp10@gmail.com</a>, read my code at <a href="https://github.com/siddharthtp10">github.com/siddharthtp10</a>, or find me on <a href="https://www.linkedin.com/in/siddharthtps">LinkedIn</a>. You can also read my <a href="assets/Siddharth_S_Resume.pdf" type="application/pdf">Resume (PDF, 145 KB)</a>.</p>
       <p class="colophon__small">Set in Newsreader and IBM Plex Sans. Static HTML, CSS and a little JavaScript; no trackers, no cookies.</p>
     </div>
   </footer>
