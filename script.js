@@ -261,6 +261,176 @@
     });
   }
 
+  /* ---------- Hero background: a rolling release across three availability zones ----------
+     A perspective floor of pods in three zones. Each release sweeps through the zones one at a
+     time (far rows first), and now and then a pod restarts and comes back. Drawn once, still,
+     for reduced motion; paused whenever the hero is off screen. */
+  function initHeroField() {
+    var canvas = $('[data-hero-field]');
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var media = canvas.parentNode;
+    var GREEN = '67,217,155', STEEL = '111,143,176', MUTED = '154,166,161';
+    var ZONES = ['ap-south-1a', 'ap-south-1b', 'ap-south-1c'];
+    var COLS = 4, ROWS = 11, Z0 = 3.2, DZ = 1.25, HC = 3;
+    var nodes = [];
+    ZONES.forEach(function (_, zi) {
+      var cx = (zi - 1) * 2.2;
+      for (var r = 0; r < ROWS; r++) for (var c = 0; c < COLS; c++) {
+        nodes.push({ zi: zi, r: r, c: c, x: cx + (c - 1.5) * 0.5, z: Z0 + r * DZ, e: 0, at: -1, down: 0 });
+      }
+    });
+    function at(zi, r, c) { return nodes[(zi * ROWS + r) * COLS + c]; }
+
+    // Soft green glow sprite, drawn with globalAlpha instead of per-frame shadows
+    var glow = document.createElement('canvas'); glow.width = glow.height = 64;
+    var g = glow.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    rg.addColorStop(0, 'rgba(' + GREEN + ',.9)'); rg.addColorStop(.35, 'rgba(' + GREEN + ',.25)'); rg.addColorStop(1, 'rgba(' + GREEN + ',0)');
+    g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
+
+    var W = 0, H = 0, cx = 0, hy = 0, f = 0, sway = 0, narrow = false;
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = media.clientWidth; H = media.clientHeight;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      narrow = W < 860;
+      cx = W * (narrow ? 0.5 : 0.68);
+      hy = H * (narrow ? 0.36 : 0.04);
+      f = (H * 1.04 - hy) * Z0 / HC;
+      if (narrow) f *= 0.82;
+    }
+    function px(x, z) { return cx + f * (x + sway) / z; }
+    function py(z) { return hy + f * HC / z; }
+
+    // Releases: zone by zone, far rows first, so the wave rolls toward the viewer
+    var period = 5.2, nextRelease = 0.6, count = 0, packets = [];
+    function release(t) {
+      count++;
+      ZONES.forEach(function (_, zi) {
+        var start = t + zi * 1.05;
+        packets.push({ zi: zi, t0: start - 0.15, dur: 0.95 });
+        for (var r = 0; r < ROWS; r++) for (var c = 0; c < COLS; c++) {
+          at(zi, r, c).at = start + (ROWS - 1 - r) * 0.09 + Math.random() * 0.06;
+        }
+      });
+      if (count % 3 === 2) { // one pod restarts, then rejoins
+        var n = nodes[Math.floor(Math.random() * nodes.length)];
+        n.down = t + period * 0.75; n.at = -1;
+      }
+    }
+
+    function line(x1, z1, x2, z2, color, a, w) {
+      ctx.strokeStyle = 'rgba(' + color + ',' + a + ')'; ctx.lineWidth = w;
+      ctx.beginPath(); ctx.moveTo(px(x1, z1), py(z1)); ctx.lineTo(px(x2, z2), py(z2)); ctx.stroke();
+    }
+
+    function draw(t, dt) {
+      ctx.clearRect(0, 0, W, H);
+      var zFar = Z0 + (ROWS - 1) * DZ;
+
+      // Zones: faint outlines and labels at the far edge
+      ctx.font = '500 12px "IBM Plex Mono", ui-monospace, monospace';
+      ctx.textAlign = 'center';
+      ZONES.forEach(function (name, zi) {
+        var c = (zi - 1) * 2.2, x1 = c - 1.02, x2 = c + 1.02, za = Z0 - 0.7, zb = zFar + 0.6;
+        ctx.beginPath();
+        ctx.moveTo(px(x1, za), py(za)); ctx.lineTo(px(x1, zb), py(zb)); ctx.lineTo(px(x2, zb), py(zb)); ctx.lineTo(px(x2, za), py(za)); ctx.closePath();
+        ctx.fillStyle = 'rgba(' + GREEN + ',.025)'; ctx.fill();
+        ctx.strokeStyle = 'rgba(' + GREEN + ',.13)'; ctx.lineWidth = 1; ctx.stroke();
+        if (narrow) return; // on phones the labels would sit behind the headline
+        ctx.fillStyle = 'rgba(' + MUTED + ',.5)';
+        ctx.fillText(name, px(c, zb + 0.4), py(zb + 0.4) - 8);
+      });
+
+      // Node state
+      nodes.forEach(function (n) {
+        if (n.at >= 0 && t >= n.at) { n.e = 1; n.at = -1; }
+        if (n.down && t >= n.down) { n.down = 0; n.e = 1; }
+        n.e *= Math.exp(-dt / 1.5);
+      });
+
+      // Links within each zone
+      nodes.forEach(function (n) {
+        var right = n.c < COLS - 1 ? at(n.zi, n.r, n.c + 1) : null, back = n.r < ROWS - 1 ? at(n.zi, n.r + 1, n.c) : null;
+        [right, back].forEach(function (m) {
+          if (!m) return;
+          var lit = Math.min(n.e, m.e), w = 0.6 + 1.2 * (Z0 / Math.min(n.z, m.z));
+          line(n.x, n.z, m.x, m.z, MUTED, 0.07, w * 0.6);
+          if (lit > 0.02) line(n.x, n.z, m.x, m.z, GREEN, lit * 0.55, w);
+        });
+      });
+
+      // Release packets: a streak down the zone's centre, just ahead of the wave
+      packets = packets.filter(function (p) {
+        var k = (t - p.t0) / p.dur; if (k > 1.15) return false; if (k < 0) return true;
+        var c = (p.zi - 1) * 2.2, z1 = zFar + 0.6 - (zFar - Z0 + 1.3) * Math.min(k, 1), z2 = Math.min(z1 + 1.6, zFar + 0.6);
+        var gr = ctx.createLinearGradient(px(c, z1), py(z1), px(c, z2), py(z2));
+        var a = k > 1 ? 1 - (k - 1) / 0.15 : 1;
+        gr.addColorStop(0, 'rgba(' + GREEN + ',' + 0.9 * a + ')'); gr.addColorStop(1, 'rgba(' + GREEN + ',0)');
+        ctx.strokeStyle = gr; ctx.lineWidth = 2.2 * Z0 / z1; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(px(c, z1), py(z1)); ctx.lineTo(px(c, z2), py(z2)); ctx.stroke();
+        return true;
+      });
+
+      // Pods, far to near
+      for (var i = ROWS - 1; i >= 0; i--) {
+        for (var zi = 0; zi < ZONES.length; zi++) for (var c = 0; c < COLS; c++) {
+          var n = at(zi, i, c), s = Z0 / n.z, x = px(n.x, n.z), y = py(n.z), r = 1.3 + 2.8 * s;
+          if (n.down) { // restarting: hollow steel ring
+            ctx.strokeStyle = 'rgba(' + STEEL + ',.85)'; ctx.lineWidth = 1.4;
+            ctx.beginPath(); ctx.arc(x, y, r * 1.6, 0, Math.PI * 2); ctx.stroke();
+            continue;
+          }
+          if (n.e > 0.02) {
+            var gs = r * (6 + 6 * n.e); ctx.globalAlpha = n.e;
+            ctx.drawImage(glow, x - gs, y - gs, gs * 2, gs * 2); ctx.globalAlpha = 1;
+            ctx.strokeStyle = 'rgba(' + GREEN + ',' + n.e * 0.45 + ')'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.arc(x, y, r * (1.5 + (1 - n.e) * 3), 0, Math.PI * 2); ctx.stroke();
+          }
+          var base = 0.22 + 0.5 * s;
+          ctx.fillStyle = n.e > 0.02 ? 'rgba(' + GREEN + ',' + Math.min(1, base + n.e) + ')' : 'rgba(' + MUTED + ',' + base + ')';
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+    }
+
+    resize();
+    media.classList.add('has-field');
+
+    if (prefersReduced) { // one still frame: the release half-way through the middle zone
+      var still = function () {
+        resize();
+        nodes.forEach(function (n) { n.e = n.zi === 0 ? 0.35 : n.zi === 1 ? (n.r > 4 ? 0.9 - (ROWS - 1 - n.r) * 0.1 : 0) : 0; n.at = -1; n.down = 0; });
+        draw(0, 0);
+      };
+      still();
+      window.addEventListener('resize', still);
+      return;
+    }
+
+    var running = false, last = 0, t = 0, onScreen = true, raf = 0;
+    function frame(now) {
+      var dt = Math.min((now - last) / 1000, 0.05); last = now; t += dt;
+      sway = Math.sin(t * 0.08) * 0.35;
+      if (t >= nextRelease) { release(t); nextRelease = t + period; }
+      draw(t, dt);
+      raf = requestAnimationFrame(frame);
+    }
+    function update() {
+      var should = onScreen && !document.hidden;
+      if (should && !running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
+      else if (!should && running) { running = false; cancelAnimationFrame(raf); }
+    }
+    window.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', update);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; update(); }, { threshold: 0 }).observe(media);
+    }
+    update();
+  }
+
   /* ---------- Skills map: link each skill to where it was used ---------- */
   function initSkillmap() {
     var map = $('[data-skillmap]');
@@ -653,6 +823,7 @@
     initCopy();
     initRecordings();
     initSkillmap();
+    initHeroField();
 
     var canAnimate = !prefersReduced && window.gsap && window.ScrollTrigger;
     if (canAnimate) {
