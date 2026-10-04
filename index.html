@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#11171E" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="profile">
   <meta property="og:title" content="Siddharth S — DevOps &amp; Platform Engineer">
-  <meta property="og:description" content="I build the platform your releases run on. AWS, Amazon EKS and CI/CD, with the evidence alongside.">
+  <meta property="og:description" content="I build the platform your releases run on. AWS, Amazon EKS and CI/CD: production results and personal projects you can read.">
   <meta property="og:url" content="https://siddharthtp10.github.io/">
   <meta property="og:image" content="https://siddharthtp10.github.io/assets/og.png">
   <meta property="og:image:width" content="1200">
@@ -96,6 +96,7 @@
         <a href="#credentials">Credentials</a>
         <a href="#contact">Contact</a>
       </nav>
+      <a class="link menu__resume" href="assets/Siddharth_S_Resume.pdf?v=2026-10" type="application/pdf" download>Resume (PDF) <span aria-hidden="true">↓</span></a>
       <a class="btn" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#100;&#100;&#104;&#97;&#114;&#116;&#104;&#116;&#112;&#49;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">Email me <span class="btn__arrow" aria-hidden="true">→</span></a>
     </div>
   </dialog>
@@ -118,7 +119,7 @@
       </div>
       <div class="hero__ctas" data-hero-fade>
         <a class="btn" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#100;&#100;&#104;&#97;&#114;&#116;&#104;&#116;&#112;&#49;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">Email me <span class="btn__arrow" aria-hidden="true">→</span></a>
-        <a class="link" href="assets/docs/Siddharth_S_Resume.pdf" download>Resume (PDF) <span aria-hidden="true">↓</span></a>
+        <a class="link" href="assets/Siddharth_S_Resume.pdf?v=2026-10" type="application/pdf" download>Resume (PDF) <span aria-hidden="true">↓</span></a>
         <a class="link" href="https://www.linkedin.com/in/siddharthtps" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
       </div>
       <p class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></p>
@@ -344,7 +345,7 @@
                 <p>The pipeline is designed to authenticate with GitHub OIDC instead of stored keys, plan on every pull request, fail on high-severity Trivy findings, and apply only after approval.</p>
               </li>
               <li class="dg__step" data-step-caption="6">
-                <p class="dg__step-k">Delivery</p>
+                <p class="dg__step-k">GitOps</p>
                 <p>Flux runs inside the cluster and pulls from a separate GitOps repository, so no CI system needs cluster credentials.</p>
               </li>
             </ol>
@@ -411,7 +412,7 @@
                   <p>Designed to plan on every pull request, block high-severity findings, and apply only after approval.</p>
                 </li>
                 <li class="dg__step">
-                  <p class="dg__step-k">Delivery</p>
+                  <p class="dg__step-k">GitOps</p>
                   <div class="ms" aria-hidden="true">
                     <div class="ms__box"><b><code>…-gitops</code> repo</b><small>Flux manifests</small></div>
                     <span class="ms__arrow ms__arrow--live">↑ pulled by</span>
@@ -568,7 +569,7 @@
         <div class="story__text">
           <div class="story__essay" data-reveal>
             <p class="story__lead">I trained as an electrical and electronics engineer, and I still think about systems the way that discipline taught me: inputs, failure modes, and what happens under load.</p>
-            <p>I joined Incedo in August 2021 to work on CI/CD and cloud infrastructure, and I have stayed close to production for the five years since. Between 2021 and 2025 I led the migration of fifteen microservices to Amazon EKS and moved our repositories from Jenkins to GitHub Actions. In September 2025 I moved into platform automation at Incedo: EKS operations, access management and deployments.</p>
+            <p>I joined Incedo in August 2021 to work on CI/CD and cloud infrastructure, and I have stayed close to production for the five years since. Between 2021 and 2025 I led the migration of fifteen microservices to Amazon EKS and moved our repositories from Jenkins to GitHub Actions. In September 2025 I became DevOps Engineer, Platform Automation, at Incedo: EKS operations, access management and deployments.</p>
             <p>Outside work I build in public with Terraform and GitHub Actions, to widen a toolkit that grew up on CloudFormation. I’m based in Chennai and looking for platform and DevOps roles in Bangalore.</p>
           </div>
           <div class="timeline">
@@ -578,7 +579,7 @@
             <li class="timeline__item"><p class="timeline__when">Aug 2021</p><p>Joined Incedo as a DevOps Engineer: CI/CD and cloud infrastructure</p></li>
             <li class="timeline__item"><p class="timeline__when">2021 – 2025</p><p>Led the migration of 15 microservices to Amazon EKS</p></li>
             <li class="timeline__item"><p class="timeline__when">2021 – 2025</p><p>Moved repositories from Jenkins to GitHub Actions</p></li>
-            <li class="timeline__item"><p class="timeline__when">Sep 2025 – now</p><p>Platform Automation at Incedo: EKS operations, access management, deployments</p></li>
+            <li class="timeline__item"><p class="timeline__when">Sep 2025 – present</p><p>DevOps Engineer, Platform Automation, Incedo Inc.: EKS operations, access management, deployments</p></li>
             <li class="timeline__item"><p class="timeline__when">2026</p><p>Building the Terraform EKS Platform and PR Guardian in public</p></li>
             </ol>
           </div>
@@ -606,7 +607,7 @@
         <div><dt>Cloud and IaC</dt><dd>AWS (EKS, EC2, S3, EFS, VPC, IAM, KMS, Secrets Manager, CloudWatch, Route 53), CloudFormation, Terraform (personal projects)</dd></div>
         <div><dt>Containers</dt><dd>Kubernetes, Amazon EKS, Docker, Helm, Kustomize, Flux, GitOps, RBAC, HPA/VPA, Amazon ECR</dd></div>
         <div><dt>CI/CD</dt><dd>Jenkins, GitHub Actions, Bitbucket, Gradle, Maven, blue-green and canary deployments, FinOps</dd></div>
-        <div><dt>Observability</dt><dd>New Relic, Elastic, CloudWatch, SRE practices, incident and on-call management</dd></div>
+        <div><dt>Observability and reliability</dt><dd>New Relic, Elastic, CloudWatch, SRE practices, incident and on-call management</dd></div>
         <div><dt>AI-assisted automation</dt><dd>MCP servers, GitHub Copilot agent mode, Claude, custom agents</dd></div>
         <div><dt>Languages and tooling</dt><dd>Python, Bash, Linux, Git, YAML, DevSecOps</dd></div>
       </dl>
@@ -626,7 +627,8 @@
         </div>
         <p class="contact__links">
           <a class="link link--inverse" href="https://www.linkedin.com/in/siddharthtps" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-          <a class="link link--inverse" href="assets/docs/Siddharth_S_Resume.pdf" download>Resume (PDF) <span aria-hidden="true">↓</span></a>
+          <a class="link link--inverse" href="assets/Siddharth_S_Resume.pdf?v=2026-10" type="application/pdf" download>Resume (PDF) <span aria-hidden="true">↓</span></a>
+          <a class="link link--inverse" href="https://github.com/siddharthtp10" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
         </p>
       </div>
     </section>

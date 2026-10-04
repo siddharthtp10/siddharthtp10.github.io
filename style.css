@@ -298,6 +298,7 @@ p { text-wrap: pretty; }
 .menu nav { display: flex; flex-direction: column; gap: .5rem; }
 .menu nav a { font-family: var(--serif); font-size: 2.75rem; line-height: 1.15; text-decoration: none; }
 .menu .btn { margin-top: auto; }
+.menu__resume { align-self: flex-start; font-size: 1.0625rem; display: inline-block; padding-block: .75rem; background-position: 0 calc(100% - .55rem), 0 calc(100% - .55rem); }
 
 /* ---------- Hero ---------- */
 .hero {
