@@ -582,10 +582,24 @@
         if (pinned) pinned.setAttribute('aria-pressed', 'true');
         show(pinned);
         status.textContent = pinned ? hint.textContent : 'Selection cleared.';
+        toastShow(status.textContent);
       });
     }
     skills.forEach(bind);
     ctxs.forEach(function (c) { c.setAttribute('aria-pressed', 'false'); bind(c); });
+
+    // Phones: the panel is not pinned, so a tapped skill's connections also show briefly at the bottom
+    var toast = document.createElement('p'), toastTimer = 0;
+    toast.className = 'skillmap__toast';
+    toast.setAttribute('aria-hidden', 'true'); // the live region above already announces it
+    document.body.appendChild(toast);
+    function toastShow(text) {
+      if (!window.matchMedia('(max-width: 860px)').matches) return;
+      toast.textContent = text;
+      toast.classList.add('is-shown');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove('is-shown'); }, 3800);
+    }
   }
 
   /* ---------- Hero: delivery-loop illustration (slow loop, paused off-screen) ---------- */
