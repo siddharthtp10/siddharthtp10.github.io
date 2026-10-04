@@ -9,6 +9,7 @@
   var root = document.documentElement;
   var reducedMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
   var prefersReduced = reducedMQ.matches;
+  var introDelay = 0;
   var lenis = null;
 
   function $(sel, ctx) { return (ctx || document).querySelector(sel); }
@@ -119,10 +120,12 @@
       var target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
+      if (id === '#top') { scrollToTop(); history.replaceState(null, '', location.pathname + location.search); return; }
       holdMasthead(2000);
       var offset = id === '#top' ? 0 : -($('.masthead__bar').offsetHeight + 8);
       if (lenis) {
-        lenis.scrollTo(target, { offset: offset, duration: 1.2 });
+        // #top is the fixed masthead: its "position" is wherever the reader already is, so scroll to 0
+        lenis.scrollTo(id === '#top' ? 0 : target, { offset: id === '#top' ? 0 : offset, duration: 1.2 });
       } else {
         var y = target.getBoundingClientRect().top + window.scrollY + offset;
         window.scrollTo({ top: id === '#top' ? 0 : y, behavior: prefersReduced ? 'auto' : 'smooth' });
@@ -201,64 +204,155 @@
     });
   }
 
-  /* ---------- Recordings: lazy-load, play only when visible ----------
-     A figure is "pending" until real <source data-src> elements are added.
-     Swapping in a recording needs no JS or layout changes. */
-  function initRecordings() {
-    var saveData = navigator.connection && navigator.connection.saveData;
-    $$('[data-rec]').forEach(function (fig) {
-      var video = $('video', fig);
-      var toggle = $('.rec__toggle', fig);
-      var sources = $$('source[data-src]', video);
-      if (!sources.length) return; // still pending: poster + "Recording coming"
-
-      fig.classList.remove('is-pending');
-      video.removeAttribute('aria-hidden');
-      toggle.hidden = false;
-      var loaded = false;
-      var userPaused = prefersReduced || saveData;
-      var visible = false;
-
-      function load() {
-        if (loaded) return;
-        sources.forEach(function (s) { s.src = s.getAttribute('data-src'); });
-        video.load();
-        loaded = true;
-      }
-      function sync() {
-        var paused = video.paused;
-        toggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
-        toggle.setAttribute('aria-label', paused ? 'Play recording' : 'Pause recording');
-      }
-      function play() {
-        load();
-        var p = video.play();
-        if (p && p.catch) p.catch(function () {});
-      }
-
-      video.addEventListener('play', sync);
-      video.addEventListener('pause', sync);
-      sync();
-
-      toggle.addEventListener('click', function () {
-        if (video.paused) { userPaused = false; play(); }
-        else { userPaused = true; video.pause(); }
+  /* ---------- Scenes: walkthroughs and replays driven by data-at / data-off / data-lit ----------
+     Each [data-scene] holds its final state in the HTML (what no-JS and reduced-motion
+     visitors see). Here a clock that only runs while the scene is on screen replays it:
+     elements appear at data-at, leave at data-off, light up at data-lit, and commands
+     marked data-type are typed out. The scene loops after data-dur + data-hold seconds. */
+  function initScenes() {
+    $$('[data-scene]').forEach(function (scene) {
+      var dur = Number(scene.getAttribute('data-dur')) || 10;
+      var hold = Number(scene.getAttribute('data-hold')) || 3;
+      var toggle = $('.rec__toggle', scene);
+      var follow = $('.term', scene); // keeps the newest line in view when the terminal fills up
+      var items = $$('[data-at], [data-off], [data-lit]', scene).map(function (el) {
+        var typed = el.hasAttribute('data-type') ? $('.t-typed', el) : null;
+        return {
+          el: el,
+          at: el.hasAttribute('data-at') ? Number(el.getAttribute('data-at')) : -1,
+          off: el.hasAttribute('data-off') ? Number(el.getAttribute('data-off')) : Infinity,
+          lit: el.hasAttribute('data-lit') ? Number(el.getAttribute('data-lit')) : Infinity,
+          typed: typed,
+          text: typed ? typed.textContent : '',
+          shown: null, litOn: null, typedLen: -1
+        };
       });
+      scene.classList.add('is-js');
 
-      if (!('IntersectionObserver' in window)) { if (!userPaused) play(); return; }
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          visible = e.isIntersecting;
-          if (visible && !userPaused) play();
-          else if (!visible && !video.paused) video.pause();
+      function render(t) {
+        var grew = false;
+        items.forEach(function (it) {
+          var show = t >= it.at && t < it.off;
+          if (show !== it.shown) { it.el.classList.toggle('is-off', !show); it.shown = show; if (show) grew = true; }
+          var lit = t >= it.lit;
+          if (lit !== it.litOn) { it.el.classList.toggle('is-lit', lit); it.litOn = lit; }
+          if (it.typed) {
+            var n = Math.max(0, Math.min(it.text.length, Math.floor((t - it.at) / 0.032)));
+            if (n !== it.typedLen) {
+              it.typed.textContent = it.text.slice(0, n);
+              it.el.classList.toggle('is-typing', n < it.text.length && show);
+              it.typedLen = n; grew = true;
+            }
+          }
         });
-      }, { threshold: 0.4 }).observe(fig);
+        if (follow && grew) follow.scrollTop = follow.scrollHeight;
+      }
 
-      // Warm up the source slightly before it is needed
-      new IntersectionObserver(function (entries, obs) {
-        if (entries[0].isIntersecting && !userPaused) { load(); obs.disconnect(); }
-      }, { rootMargin: '400px 0px' }).observe(fig);
+      if (prefersReduced || !window.requestAnimationFrame) { render(dur + 1); return; }
+
+      var t = 0, last = 0, raf = 0, running = false, onScreen = false, userPaused = false;
+      function frame(now) {
+        t += Math.min((now - last) / 1000, 0.1); last = now;
+        if (t > dur + hold) { t = 0; scene.classList.remove('is-fading'); scene.dispatchEvent(new CustomEvent('scene:loop')); }
+        else if (t > dur + hold - 0.6) scene.classList.add('is-fading');
+        render(t);
+        raf = requestAnimationFrame(frame);
+      }
+      function update() {
+        var should = onScreen && !userPaused && !document.hidden;
+        if (should && !running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
+        else if (!should && running) { running = false; cancelAnimationFrame(raf); }
+        toggle.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+        toggle.setAttribute('aria-label', toggle.getAttribute('aria-label').replace(/^(Play|Pause)/, userPaused ? 'Play' : 'Pause'));
+      }
+      render(0);
+      scene.addEventListener('scene:restart', function () { t = 0; scene.classList.remove('is-fading'); render(0); });
+      toggle.hidden = false;
+      toggle.addEventListener('click', function () { userPaused = !userPaused; update(); });
+      document.addEventListener('visibilitychange', update);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; update(); }, { threshold: 0.35 }).observe(scene);
+      } else { onScreen = true; update(); }
     });
+  }
+
+  /* ---------- Scene tabs: one window, two walkthroughs ----------
+     Without JavaScript both figures are shown in turn. With it, one shows at a time; when a
+     walkthrough finishes, the next tab opens on its own until the visitor picks one. */
+  function initSceneTabs() {
+    var tabs = $('[data-scene-tabs]');
+    if (!tabs) return;
+    var btns = $$('[data-tab]', tabs);
+    var chosen = false;
+    tabs.hidden = false;
+    tabs.setAttribute('role', 'tablist');
+    tabs.setAttribute('aria-label', 'Walkthroughs');
+    function panel(b) { return document.getElementById(b.getAttribute('data-tab')); }
+    function select(i, focus) {
+      btns.forEach(function (b, j) {
+        var on = i === j;
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+        b.tabIndex = on ? 0 : -1;
+        panel(b).hidden = !on;
+        if (on) {
+          var sc = $('[data-scene]', panel(b));
+          if (sc) sc.dispatchEvent(new CustomEvent('scene:restart'));
+          if (focus) b.focus();
+        }
+      });
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    }
+    btns.forEach(function (b, i) {
+      b.setAttribute('role', 'tab');
+      b.id = 'tab-' + b.getAttribute('data-tab');
+      b.setAttribute('aria-controls', b.getAttribute('data-tab'));
+      panel(b).setAttribute('role', 'tabpanel');
+      panel(b).setAttribute('aria-labelledby', b.id);
+      b.addEventListener('click', function () { chosen = true; select(i); });
+      b.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault(); chosen = true;
+        select((i + (e.key === 'ArrowRight' ? 1 : btns.length - 1)) % btns.length, true);
+      });
+      var sc = $('[data-scene]', panel(b));
+      if (sc) sc.addEventListener('scene:loop', function () { if (!chosen) select((i + 1) % btns.length); });
+    });
+    select(0);
+  }
+
+  /* ---------- Opening intro: a light beam splits the screen open ----------
+     Plays on every load; skipped for reduced motion and deep links (#section).
+     Returns how long the hero intro should wait. */
+  function initIntro() {
+    if (prefersReduced || location.hash) return 0;
+    var el = document.createElement('div');
+    el.className = 'intro';
+    el.setAttribute('aria-hidden', 'true');
+    el.innerHTML = '<span class="intro__half intro__half--top"></span><span class="intro__half intro__half--bot"></span><span class="intro__beam"></span>';
+    document.body.appendChild(el);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('is-beam'); }); });
+    setTimeout(function () { el.classList.add('is-open'); }, 1000);
+    setTimeout(function () { el.remove(); }, 2200);
+    return 0.8; // the hero text rises while the screen opens
+  }
+
+  /* ---------- Floating project deck: cards drift with the cursor at different depths ---------- */
+  function initDeck() {
+    var deck = $('[data-deck]');
+    if (deck && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { deck.classList.toggle('is-idle', !e[0].isIntersecting); }).observe(deck);
+    }
+    if (!deck || prefersReduced || !window.matchMedia('(hover: hover) and (min-width: 861px)').matches) return;
+    var cards = $$('.deck__card', deck);
+    deck.addEventListener('pointermove', function (e) {
+      var r = deck.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      cards.forEach(function (c) {
+        var d = Number(c.getAttribute('data-depth')) || 1;
+        c.style.translate = (x * 36 * d).toFixed(1) + 'px ' + (y * 24 * d).toFixed(1) + 'px';
+      });
+    });
+    deck.addEventListener('pointerleave', function () { cards.forEach(function (c) { c.style.translate = ''; }); });
   }
 
   /* ---------- Hero background: a rolling release across three availability zones ----------
@@ -301,8 +395,10 @@
       f = (H * 1.04 - hy) * Z0 / HC;
       if (narrow) f *= 0.82;
     }
-    function px(x, z) { return cx + f * (x + sway) / z; }
-    function py(z) { return hy + f * HC / z; }
+    var dz = 0; // scroll dolly: the camera moves forward over the floor as the hero scrolls away
+    function depth(z) { return Math.max(z - dz, 0.8); }
+    function px(x, z) { return cx + f * (x + sway) / depth(z); }
+    function py(z) { return hy + f * HC / depth(z); }
 
     // Releases: zone by zone, far rows first, so the wave rolls toward the viewer
     var period = 5.2, nextRelease = 0.6, count = 0, packets = [];
@@ -414,6 +510,7 @@
     function frame(now) {
       var dt = Math.min((now - last) / 1000, 0.05); last = now; t += dt;
       sway = Math.sin(t * 0.08) * 0.35;
+      dz += ((window.__heroDolly || 0) * 3.4 - dz) * 0.12;
       if (t >= nextRelease) { release(t); nextRelease = t + period; }
       draw(t, dt);
       raf = requestAnimationFrame(frame);
@@ -423,7 +520,9 @@
       if (should && !running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
       else if (!should && running) { running = false; cancelAnimationFrame(raf); }
     }
-    window.addEventListener('resize', resize);
+    // Re-measure whenever the hero itself changes size (fonts loading, content reflow), not only on window resize
+    if ('ResizeObserver' in window) new ResizeObserver(function () { resize(); }).observe(media);
+    else window.addEventListener('resize', resize);
     document.addEventListener('visibilitychange', update);
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; update(); }, { threshold: 0 }).observe(media);
@@ -651,7 +750,7 @@
     // Hero intro
     var heroTitle = $('.hero__title');
     var heroLines = splitLines(heroTitle);
-    var intro = gsap.timeline({ delay: 0.15 });
+    var intro = gsap.timeline({ delay: 0.15 + introDelay });
     intro
       .to('[data-hero-fade].eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: EASE })
       .from(heroLines, { yPercent: 105, duration: 1, ease: EASE, stagger: 0.09 }, '<0.05')
@@ -668,6 +767,8 @@
 
     // Scroll cue fades once the reader starts
     gsap.to('.scroll-cue', { opacity: 0, scrollTrigger: { start: 0, end: 80, scrub: true } });
+    var cue = $('.scroll-cue');
+    if (cue) ST.create({ start: 80, onEnter: function () { cue.classList.add('is-gone'); }, onLeaveBack: function () { cue.classList.remove('is-gone'); } });
 
     // Generic reveals
     ST.batch('[data-reveal]', {
@@ -747,6 +848,50 @@
       });
     }
 
+    // Cinematic layer: hero dolly, scenes rising into view, chapter numerals, contact push-in
+    var hero = $('.hero');
+    if (hero) {
+      ST.create({ trigger: hero, start: 'top top', end: 'bottom top', scrub: true,
+        onUpdate: function (self) { window.__heroDolly = self.progress; } });
+      gsap.to('.hero__title', { yPercent: -22, opacity: 0.2, ease: 'none',
+        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+    }
+    $$('.scene').forEach(function (frame) {
+      gsap.fromTo(frame, { rotateX: 12, scale: 0.93, opacity: 0.35, transformPerspective: 1400, transformOrigin: '50% 100%' }, {
+        rotateX: 0, scale: 1, opacity: 1, ease: 'none',
+        scrollTrigger: { trigger: frame, start: 'top 98%', end: 'top 50%', scrub: 0.6 }
+      });
+    });
+    $$('.chapter__head').forEach(function (head) {
+      var num = $('.chapter__num', head), title = $('.chapter__title', head);
+      if (num) gsap.fromTo(num, { yPercent: 35, opacity: 0 }, { yPercent: -15, opacity: 1, ease: 'none',
+        scrollTrigger: { trigger: head, start: 'top 95%', end: 'bottom 20%', scrub: true } });
+      if (title) gsap.fromTo(title, { clipPath: 'inset(0% 0% 100% 0%)', y: 40 }, {
+        clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.1, ease: EASE, clearProps: 'clipPath,transform',
+        scrollTrigger: { trigger: head, start: 'top 85%', once: true } });
+    });
+    var band = $('[data-band]');
+    if (band) {
+      var accent = band.getAttribute('data-accent');
+      var bw = splitInto(band, 'word');
+      var accentWords = (accent || '').split(/\s+/);
+      bw.forEach(function (w) { if (accentWords.indexOf(w.textContent) !== -1) w.classList.add('grad'); });
+      gsap.fromTo(bw, { opacity: 0.12, y: 24 }, { opacity: 1, y: 0, stagger: 0.12, ease: 'none',
+        scrollTrigger: { trigger: band, start: 'top 80%', end: 'center 50%', scrub: 0.6 } });
+    }
+    $$('.deck__card').forEach(function (c) {
+      var d = Number(c.getAttribute('data-depth')) || 1;
+      if (window.matchMedia('(min-width: 861px)').matches) {
+        gsap.fromTo(c, { y: 90 * d }, { y: -50 * d, ease: 'none',
+          scrollTrigger: { trigger: '.deck', start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+      }
+    });
+
+    if (contact) {
+      gsap.fromTo('.contact__title', { scale: 0.82, transformOrigin: '0% 50%' }, { scale: 1, ease: 'none',
+        scrollTrigger: { trigger: contact, start: 'top bottom', end: 'top 25%', scrub: 0.6 } });
+    }
+
     // Fonts can change line breaks: refresh once they are in
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function () { splitLines(heroTitle); ST.refresh(); });
@@ -813,17 +958,114 @@
     });
   }
 
+  /* ---------- Cursor spotlight on cards and scenes ---------- */
+  function initSpotlight() {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    $$('.pillar, .cert, .scene, .metric').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+      el.addEventListener('pointerleave', function () { el.style.removeProperty('--mx'); el.style.removeProperty('--my'); });
+    });
+  }
+
+  /* ---------- Dynamic facts: years of experience, copyright year, last updated ----------
+     The HTML holds today's values as a fallback; these keep them true as time passes. */
+  function initDynamic() {
+    var now = new Date();
+    var WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+    $$('[data-years-since]').forEach(function (el) {
+      var parts = el.getAttribute('data-years-since').split('-');
+      var start = new Date(Number(parts[0]), Number(parts[1] || 1) - 1, 1);
+      var years = now.getFullYear() - start.getFullYear() - (now.getMonth() < start.getMonth() ? 1 : 0);
+      if (!(years > 0)) return;
+      var word = WORDS[years] || String(years);
+      el.textContent = el.getAttribute('data-years-style') === 'word-cap' ? word.charAt(0).toUpperCase() + word.slice(1) : String(years);
+    });
+    $$('[data-year]').forEach(function (el) { el.textContent = String(now.getFullYear()); });
+    // The server's Last-Modified date for this page, i.e. when it was last deployed
+    var mod = new Date(document.lastModified);
+    if (!isNaN(mod) && Math.abs(now - mod) > 60000) {
+      $$('[data-updated]').forEach(function (el) { el.textContent = mod.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); });
+    }
+  }
+
+  /* ---------- Back to top: one gentle, eased glide (longer pages take a little longer) ---------- */
+  function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function scrollToTop() {
+    var y = window.scrollY || 0;
+    var wordmark = $('.wordmark');
+    holdMasthead(2600);
+    var done = function () { if (wordmark) wordmark.focus({ preventScroll: true }); };
+    if (prefersReduced || y < 2) { window.scrollTo(0, 0); done(); return; }
+    var duration = Math.min(2.2, Math.max(1.1, 0.8 + y / 6000));
+    if (lenis) lenis.scrollTo(0, { duration: duration, easing: easeInOutCubic, onComplete: done });
+    else {
+      var start = performance.now();
+      (function step(now) {
+        var k = Math.min(1, (now - start) / (duration * 1000));
+        window.scrollTo(0, Math.round(y * (1 - easeInOutCubic(k))));
+        if (k < 1) requestAnimationFrame(step); else done();
+      })(start);
+    }
+  }
+
+  /* Floating button: appears after the first screen; its ring fills with reading progress */
+  function initToTop() {
+    var btn = $('[data-to-top]');
+    if (!btn) return;
+    var ring = $('.ring', btn), ticking = false;
+    // At the very bottom the footer's own "Back to top" link takes over, so the button steps aside
+    var footerInView = false, footer = $('.footer');
+    if (footer && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { footerInView = e[0].isIntersecting; update(); }).observe(footer);
+    }
+    function update() {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var y = window.scrollY || 0;
+      btn.classList.toggle('is-shown', y > window.innerHeight * 0.9 && !footerInView);
+      if (ring) ring.style.strokeDashoffset = String(1 - (max > 0 ? Math.min(1, y / max) : 0));
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    btn.addEventListener('click', scrollToTop);
+    update();
+  }
+
+  /* ---------- The record: tap or click a figure to open its detail (hover does it on desktop) ---------- */
+  function initMetrics() {
+    var tiles = $$('.metric');
+    tiles.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var open = !t.classList.contains('is-open');
+        tiles.forEach(function (o) { o.classList.remove('is-open'); o.setAttribute('aria-expanded', 'false'); });
+        t.classList.toggle('is-open', open);
+        t.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+  }
+
   /* ---------- Boot ---------- */
   function init() {
     window.__siteReady = true;
+    introDelay = initIntro();
+    initDynamic();
     initTheme();
     initMasthead();
     initAnchors();
     initMenu();
     initCopy();
-    initRecordings();
+    initScenes();
+    initSceneTabs();
     initSkillmap();
     initHeroField();
+    initSpotlight();
+    initDeck();
+    initToTop();
+    initMetrics();
 
     var canAnimate = !prefersReduced && window.gsap && window.ScrollTrigger;
     if (canAnimate) {

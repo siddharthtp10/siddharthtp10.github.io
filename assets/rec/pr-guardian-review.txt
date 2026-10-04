@@ -1,0 +1,69 @@
+pr-guardian 1.0.0
+  mode:      rules-only
+  fail-on:   high
+  max-files: 50
+  dry-run:   true
+  paths:     (all supported file types)
+  AI layer disabled: no anthropic-api-key provided (rules-only mode).
+Changed files in PR: 4
+Reviewing 4 file(s):
+  - demo-pr/terraform/main.tf [terraform] (96 commentable line(s))
+  - demo-pr/kubernetes/deployment.yaml [kubernetes] (28 commentable line(s))
+  - .github/workflows/pr-guardian-demo-bad-workflow.yml [github-actions] (22 commentable line(s))
+  - demo-pr/docker/Dockerfile [dockerfile] (13 commentable line(s))
+Rules loaded: 27
+Findings: 26 (1 critical, 11 high, 12 medium, 2 low)
+  - [HIGH] GHA-004 .github/workflows/pr-guardian-demo-bad-workflow.yml:17
+      Workflow or job grants the token every permission (permissions: write-all). A compromised step or action could then write to the repository, packages and more. Declare only the scopes the job needs, for example `contents: read`.
+  - [MEDIUM] GHA-002 .github/workflows/pr-guardian-demo-bad-workflow.yml:19
+      GitHub-maintained action is not pinned to a full commit SHA. Lower risk than third-party actions, but a moved tag still changes what runs with your token. Pin to the SHA and keep the version tag in a comment.
+  - [HIGH] GHA-001 .github/workflows/pr-guardian-demo-bad-workflow.yml:20
+      Third-party action is not pinned to a full 40-character commit SHA. Tags and branches can be moved by whoever controls that repository, so the code running with your token can change without a change in this repo. Pin to the SHA and keep the version tag in a trailing comment.
+  - [HIGH] GHA-003 .github/workflows/pr-guardian-demo-bad-workflow.yml:22
+      Untrusted, attacker-controllable value (PR title/body/branch name, comment text, commit message...) is expanded directly inside a script. The expression is substituted before the shell runs, so a crafted value becomes code. Pass it through an environment variable and quote it.
+  - [MEDIUM] DOCKER-001 demo-pr/docker/Dockerfile:2
+      Base image uses the mutable :latest tag, so builds are not reproducible and can break or change without any change in this repo. Pin a version tag, ideally an @sha256 digest.
+  - [MEDIUM] SEC-003 demo-pr/docker/Dockerfile:4
+      Possible hard-coded credential (a password/token/key-named field assigned a literal value, quoted or not). If real, rotate it and load it from a secret store or CI secret instead. Heuristic: dismiss if it is a harmless value.
+  - [MEDIUM] DOCKER-003 demo-pr/docker/Dockerfile:6
+      A downloaded script is piped straight into a shell (curl|wget ... | sh). The build then runs whatever that URL serves on the day, unverified. Pin a version, download to a file, verify a checksum or signature, then run it.
+  - [MEDIUM] DOCKER-002 demo-pr/docker/Dockerfile:12
+      Image runs as root. Add a non-root USER as the last USER instruction. (If this root USER is only for install steps and a later USER switches back, dismiss this.)
+  - [HIGH] K8S-005 demo-pr/kubernetes/deployment.yaml:16
+      Pod shares a host namespace (hostNetwork / hostPID / hostIPC: true). It can see or interfere with the node's network or processes, which breaks the isolation containers are meant to provide. Remove it unless this is a node-level agent that truly needs it.
+  - [MEDIUM] K8S-001 demo-pr/kubernetes/deployment.yaml:18
+      Container has no resources.limits. Without limits one pod can starve its neighbours (CPU throttling, node OOM). Set memory and CPU limits, or rely on a namespace LimitRange and dismiss this. Only reported when the whole container block is visible in the diff.
+  - [MEDIUM] K8S-004 demo-pr/kubernetes/deployment.yaml:19
+      Image uses the mutable :latest tag or no tag at all, so the same manifest can run different code on each pull and rollbacks are unreliable. Pin a version tag, ideally an @sha256 digest. (If the tag is set elsewhere, e.g. Helm values, this is a false positive.)
+  - [CRITICAL] K8S-002 demo-pr/kubernetes/deployment.yaml:23
+      Privileged container: it has near-root access to the node, so a container escape becomes a node takeover. Drop `privileged`, and add only the specific capabilities needed.
+  - [MEDIUM] K8S-006 demo-pr/kubernetes/deployment.yaml:24
+      Container may gain more privileges than its parent process (allowPrivilegeEscalation: true). Set it to false unless a setuid binary is genuinely required.
+  - [HIGH] K8S-003 demo-pr/kubernetes/deployment.yaml:25
+      Container is configured to run as root (runAsUser 0 or runAsNonRoot false). Run as a non-root UID and set runAsNonRoot: true.
+  - [LOW] TF-006 demo-pr/terraform/main.tf:14
+      Ingress rule is open to the whole internet on a non-administrative port. That is normal for a public web service, but confirm it is intentional and that the service sits behind a load balancer or WAF where appropriate. (Administrative, database and all-ports exposure is reported as high by TF-001/TF-002.) Only reported when the whole rule block is visible.
+  - [HIGH] TF-001 demo-pr/terraform/main.tf:23
+      Ingress rule exposes an administrative or database port (SSH, RDP, common database ports) or ALL ports to the whole internet (0.0.0.0/0 or ::/0). Restrict the CIDR to the networks that need access (a VPN, a bastion, a private subnet). Egress blocks are intentionally not flagged. Only reported when the whole rule block is visible in the diff.
+  - [HIGH] TF-002 demo-pr/terraform/main.tf:37
+      Security group ingress rule exposes an administrative or database port, or ALL ports, to the whole internet. Restrict the CIDR to the networks that need access. Only reported when the whole resource block is visible in the diff.
+  - [HIGH] TF-003 demo-pr/terraform/main.tf:45
+      S3 ACL makes objects publicly readable or writable. Use private ACLs (or none), keep Block Public Access on, and serve public content through CloudFront with an origin access control.
+  - [HIGH] TF-004 demo-pr/terraform/main.tf:50
+      S3 Block Public Access setting is disabled. Leaving any of the four settings off removes a guard rail that prevents accidental public exposure of the bucket.
+  - [HIGH] TF-005 demo-pr/terraform/main.tf:58
+      IAM policy allows every action ("*"). Grant only the specific actions the workload needs (least privilege); use IAM Access Analyzer to find what is actually used.
+  - [MEDIUM] SEC-003 demo-pr/terraform/main.tf:64
+      Possible hard-coded credential (a password/token/key-named field assigned a literal value, quoted or not). If real, rotate it and load it from a secret store or CI secret instead. Heuristic: dismiss if it is a harmless value.
+  - [HIGH] TF-007 demo-pr/terraform/main.tf:70
+      Database or cluster is set to be publicly accessible. Keep databases in private subnets and reach them through a bastion, VPN or application tier; "publicly accessible" exposes the endpoint to the internet (the security group is then the only barrier).
+  - [MEDIUM] TF-008 demo-pr/terraform/main.tf:71
+      Encryption at rest is explicitly turned off (storage_encrypted / encrypted = false). Enable it, ideally with a customer-managed KMS key; changing it later usually means rebuilding the resource.
+  - [MEDIUM] TF-009 demo-pr/terraform/main.tf:80
+      The EKS API server endpoint is open to the whole internet (public_access_cidrs contains 0.0.0.0/0). Restrict it to known networks, or disable public access and use private endpoint access. Only detects the single-line list form.
+  - [MEDIUM] TF-010 demo-pr/terraform/main.tf:89
+      Instance metadata service v1 is still allowed (http_tokens = "optional"). IMDSv1 lets a server-side request forgery bug steal the instance role's credentials. Set http_tokens = "required" (IMDSv2).
+  - [LOW] TF-011 demo-pr/terraform/main.tf:95
+      Container repository allows mutable image tags, so a tag such as "1.4.2" can be silently re-pointed at different code. Use IMMUTABLE tags and deploy by digest.
+Review: dry-run, not posting.
+exit code 1
