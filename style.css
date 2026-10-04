@@ -393,6 +393,7 @@ p { text-wrap: pretty; }
 .pillar__num { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--ink-muted); margin-bottom: 1rem; transition: color .25s ease; }
 .pillar__title { font-family: var(--serif); font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.1; letter-spacing: -.01em; margin-bottom: 1rem; }
 .pillar p:not(.pillar__num) { color: var(--ink-muted); max-width: 40ch; }
+.pillar p:not(.pillar__num) + p { margin-top: .75rem; }
 @media (hover: hover) {
   .pillar:hover .pillar__num { color: var(--accent); }
   .pillar:hover .pillar__rule { height: 2px; }
