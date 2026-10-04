@@ -146,13 +146,22 @@
       open.setAttribute('aria-expanded', 'true');
       if (lenis) lenis.stop();
     });
-    function shut() { if (dialog.open) dialog.close(); }
+    var leftViaLink = false;
+    function shut() {
+      // Restart smooth scrolling before the anchor handler runs, or Lenis ignores the jump
+      if (lenis) lenis.start();
+      if (dialog.open) dialog.close();
+    }
     close.addEventListener('click', shut);
-    $$('a', dialog).forEach(function (a) { a.addEventListener('click', shut); });
+    $$('a', dialog).forEach(function (a) {
+      a.addEventListener('click', function () { leftViaLink = true; shut(); });
+    });
     dialog.addEventListener('close', function () {
       open.setAttribute('aria-expanded', 'false');
       if (lenis) lenis.start();
-      open.focus();
+      // After following a link, focus stays on the target section instead of returning to the button
+      if (!leftViaLink) open.focus();
+      leftViaLink = false;
     });
   }
 
