@@ -1,294 +1,665 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Siddharth S · DevOps &amp; Cloud Infrastructure Engineer</title>
-<meta name="description" content="Siddharth S, DevOps and cloud infrastructure engineer in Chennai. Five years building and running AWS and Kubernetes platforms. Open to roles in Bangalore.">
-<meta name="author" content="Siddharth S">
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#F4F5F2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#12181F" media="(prefers-color-scheme: dark)">
-<link rel="canonical" href="https://siddharthtp10.github.io/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Siddharth S — DevOps &amp; Platform Engineer</title>
+  <meta name="description" content="Siddharth S, DevOps and platform engineer in Chennai. AWS, Amazon EKS and CI/CD: production results and personal projects you can read.">
+  <link rel="canonical" href="https://siddharthtp10.github.io/">
+  <meta name="theme-color" content="#F4F5F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#11171E" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Siddharth S — DevOps &amp; Platform Engineer">
+  <meta property="og:description" content="I build the platform your releases run on. AWS, Amazon EKS and CI/CD, with the evidence alongside.">
+  <meta property="og:url" content="https://siddharthtp10.github.io/">
+  <meta property="og:image" content="https://siddharthtp10.github.io/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Siddharth S, DevOps and Platform Engineer: “I build the platform your releases run on.”">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://siddharthtp10.github.io/assets/og.png">
+  <meta name="twitter:image:alt" content="Siddharth S, DevOps and Platform Engineer: “I build the platform your releases run on.”">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 
-<meta property="og:type" content="profile">
-<meta property="og:title" content="Siddharth S · DevOps & Cloud Infrastructure Engineer">
-<meta property="og:description" content="Five years building and running AWS and Kubernetes platforms. Chennai, open to Bangalore.">
-<meta property="og:url" content="https://siddharthtp10.github.io/">
-<meta property="og:image" content="https://siddharthtp10.github.io/assets/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Siddharth S, DevOps and Cloud Infrastructure Engineer">
-<meta name="twitter:card" content="summary_large_image">
+  <script>
+    /* Theme and motion flags before first paint */
+    (function () {
+      var d = document.documentElement, t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+      d.classList.add('js');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        d.classList.add('motion');
+        /* Failsafe: reveal everything if script.js never boots */
+        setTimeout(function () { if (!window.__siteReady) d.classList.remove('motion'); }, 3000);
+      }
+    })();
+  </script>
 
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<!-- Apply a saved theme before first paint, so there is no flash of the other one. -->
-<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-<link rel="stylesheet" href="scrollcraft.css">
-<link rel="stylesheet" href="css/site.css">
-<link rel="stylesheet" href="css/print.css" media="print">
-<!-- Without JavaScript nothing waits for a script to reveal it. -->
-<noscript><style>[data-sc-in],[data-sc-stagger]>*{opacity:1!important;transform:none!important}</style></noscript>
+  <link rel="preload" href="assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/plex-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Siddharth S",
+    "jobTitle": "DevOps and Platform Engineer",
+    "worksFor": { "@type": "Organization", "name": "Incedo Inc" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Chennai", "addressCountry": "IN" },
+    "url": "https://siddharthtp10.github.io/",
+    "sameAs": [
+      "https://www.linkedin.com/in/siddharthtps",
+      "https://github.com/siddharthtp10"
+    ],
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "SRM University of Science and Technology" },
+    "hasCredential": [
+      { "@type": "EducationalOccupationalCredential", "name": "Certified Kubernetes Administrator (CKA)", "recognizedBy": { "@type": "Organization", "name": "The Linux Foundation" } },
+      { "@type": "EducationalOccupationalCredential", "name": "AWS Certified Solutions Architect – Associate", "recognizedBy": { "@type": "Organization", "name": "Amazon Web Services" } }
+    ]
+  }
+  </script>
 </head>
 <body>
+  <a class="skip" href="#content">Skip to content</a>
+  <div class="progress" aria-hidden="true"><span></span></div>
 
-<a class="skip" href="#main">Skip to content</a>
-
-<header class="folio">
-  <a class="folio__name" href="#top">Siddharth S</a>
-  <span class="folio__now" aria-hidden="true"></span>
-  <nav class="folio__nav" aria-label="Sections">
-    <ul>
-      <li><a href="#results">Results</a></li>
-      <li><a href="#platform">EKS Platform</a></li>
-      <li><a href="#guardian">PR Guardian Action</a></li>
-      <li><a href="#validator">Validation bot</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="assets/Siddharth_S_Resume.pdf" type="application/pdf">Resume (PDF, 145 KB)</a></li>
-    </ul>
-  </nav>
-  <button class="theme-toggle" type="button" aria-pressed="false" hidden>
-    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path class="moon-fill" d="M8 1.75a6.25 6.25 0 0 1 0 12.5z"/></svg>
-    <span class="theme-toggle__label">Dark theme</span>
-  </button>
-</header>
-
-<main id="main" tabindex="-1">
-
-  <!-- ============================================================ title page -->
-  <section id="top" class="chapter title-page" data-chapter="" aria-labelledby="name">
-    <div class="title-page__inner">
-      <h1 id="name" class="title-page__name">Siddharth S</h1>
-      <p class="title-page__role">DevOps &amp; Cloud Infrastructure Engineer</p>
-      <!-- Positioning sentence written from the brief's facts; re-read before going live. -->
-      <p class="title-page__lede">I build and run AWS and Kubernetes platforms, and automate the work around them so teams release more often and recover faster.</p>
-      <p class="title-page__meta">
-        <span>Five years on AWS and Kubernetes.</span>
-        <span>Based in Chennai, open to roles in Bangalore.</span>
-        <span class="title-page__links"><a href="mailto:siddharthtp10@gmail.com">siddharthtp10@gmail.com</a> · <a href="https://github.com/siddharthtp10">GitHub</a> · <a href="https://www.linkedin.com/in/siddharthtps">LinkedIn</a></span>
-      </p>
-    </div>
-  </section>
-
-  <!-- =============================================================== results -->
-  <section id="results" class="chapter results" data-chapter="Results" data-sc-act="flow" aria-labelledby="results-h">
-    <div class="wrap">
-      <h2 id="results-h" class="h2">Selected results</h2>
-      <p class="results__note">From my work at Incedo Inc., 2021 to now.</p>
-      <dl class="figures" data-sc-in data-sc-stagger="70">
-        <div class="figure">
-          <dt><span class="figure__n">15</span><span class="figure__unit">microservices</span></dt>
-          <dd>moved to Amazon EKS, running 120+ pods.</dd>
-        </div>
-        <div class="figure">
-          <dt><span class="figure__n">~40%</span><span class="figure__unit">lower cloud spend</span></dt>
-          <dd>while deploys went from about 45 minutes to under 10.</dd>
-        </div>
-        <div class="figure">
-          <dt><span class="figure__n">68%</span><span class="figure__unit">shorter pipelines</span></dt>
-          <dd>supporting 15 to 20 releases a week.</dd>
-        </div>
-        <div class="figure">
-          <dt><span class="figure__n">45%</span><span class="figure__unit">lower mean time to recovery</span></dt>
-          <dd>with observability on New Relic, Elastic and CloudWatch.</dd>
-        </div>
-      </dl>
-    </div>
-  </section>
-
-  <!-- ====================================================== feature: platform -->
-  <article id="platform" class="chapter ground-ink feature" data-chapter="Terraform EKS Platform" aria-labelledby="platform-h">
-    <div class="wrap feature__intro" data-sc-act="flow">
-      <p class="kicker">Personal project</p>
-      <h2 id="platform-h" class="h1">Terraform EKS Platform</h2>
-      <p class="standfirst">A production-style AWS platform in Terraform, designed to be created for an afternoon and destroyed afterwards.</p>
-      <hr class="wipe" data-sc-reveal="left" data-sc-reveal-at="0.12 0.38">
-      <div class="feature__body">
-        <p>The repository is built to stand up the pieces a real platform team owns: S3 remote state with native locking, a VPC, EKS with IRSA and access entries, plan-on-PR CI through GitHub OIDC with no stored keys, Trivy scanning, and Flux for GitOps delivery.</p>
-        <p>I built it with Claude as a coding assistant. I ran and reviewed every stage myself.</p>
-        <p class="feature__link"><a href="https://github.com/siddharthtp10/terraform-eks-platform">Read the code on GitHub</a></p>
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead" id="top">
+    <div class="masthead__bar wrap">
+      <a class="wordmark" href="#top" aria-label="Siddharth S, back to top">Siddharth S</a>
+      <p class="running-head" aria-hidden="true"></p>
+      <nav class="nav" aria-label="Primary">
+        <a href="#work" data-nav="work">Work</a>
+        <a href="#story" data-nav="story">Story</a>
+        <a href="#contact" data-nav="contact">Contact</a>
+      </nav>
+      <div class="masthead__actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <svg class="icon icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+          <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <a class="btn btn--sm" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#100;&#100;&#104;&#97;&#114;&#116;&#104;&#116;&#112;&#49;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">Email me</a>
+        <button class="menu-toggle" type="button" aria-haspopup="dialog" aria-controls="menu">Menu</button>
       </div>
     </div>
+    <p class="folio wrap" aria-hidden="true"><span>Portfolio</span><span>DevOps &amp; Platform Engineering</span><span>2026</span></p>
+  </header>
 
-    <!-- The signature move. Without JS or with reduced motion this is a finished
-         drawing beside a numbered list; site.js only adds the scroll build. -->
-    <section class="arch" data-sc-act="pin" data-sc-span="4.2" aria-labelledby="arch-h">
-      <div class="arch__stage" data-sc-stage>
-        <figure class="arch__figure">
-          <svg class="dg dg-wide" viewBox="0 0 960 760" role="img" aria-labelledby="dg-wide-t dg-wide-d" focusable="false">
-<title id="dg-wide-t">Architecture of the Terraform EKS Platform</title>
-<desc id="dg-wide-d">An AWS account holding an S3 bucket for Terraform state, a VPC across two availability zones with public and private subnets, a NAT gateway and an S3 gateway endpoint, an EKS control plane with a managed node group in the private subnets, IRSA and access entries for identity, IAM roles that GitHub Actions assumes through OIDC for plan and apply, and Flux inside the cluster pulling from a separate GitOps repository. The numbered captions next to the drawing describe each layer.</desc>
-<g class="L" data-layer="1"><rect class="frame draw" x="236" y="16" width="708" height="728" rx="10" pathLength="1"/><text class="f" x="252" y="42">AWS account</text><rect class="box draw " x="252" y="60" width="160" height="136" rx="6" pathLength="1"/><text class="t" x="264" y="82">Terraform state</text><text class="s" x="264" y="101">S3 bucket, versioned</text><text class="s" x="264" y="118">encrypted, private</text><text class="s" x="264" y="135">native S3 lockfile</text><text class="s" x="264" y="152">made by bootstrap/</text></g>
-<g class="L" data-layer="2"><rect class="vpc draw" x="252" y="220" width="676" height="500" rx="8" pathLength="1"/><text class="f" x="268" y="246">VPC  10.0.0.0/16</text><rect class="az fade" x="268" y="262" width="322" height="442" rx="6" pathLength="1"/><text class="z" x="280" y="282">AZ 1</text><rect class="az fade" x="606" y="262" width="306" height="442" rx="6" pathLength="1"/><text class="z" x="618" y="282">AZ 2</text><rect class="pub draw" x="284" y="296" width="290" height="64" rx="5" pathLength="1"/><text class="s" x="296" y="316">public /24 · 10.0.240.0/24</text><rect class="chip draw" x="296" y="328" width="98" height="22" rx="4" pathLength="1"/><text class="c" x="304" y="343">NAT gateway</text><text class="m" x="406" y="343">load balancers</text><rect class="pub draw" x="622" y="296" width="274" height="64" rx="5" pathLength="1"/><text class="s" x="634" y="316">public /24 · 10.0.241.0/24</text><text class="m" x="634" y="343">load balancers</text><rect class="priv draw" x="284" y="376" width="290" height="320" rx="5" pathLength="1"/><text class="s" x="296" y="394">private /20 · 10.0.0.0/20</text><rect class="priv draw" x="622" y="376" width="274" height="320" rx="5" pathLength="1"/><text class="s" x="634" y="394">private /20 · 10.0.16.0/20</text><rect class="chip draw" x="510" y="708" width="170" height="24" rx="4" pathLength="1"/><text class="c" x="518" y="724">S3 gateway endpoint</text></g>
-<g class="L" data-layer="3"><rect class="box draw " x="600" y="60" width="156" height="136" rx="6" pathLength="1"/><text class="t" x="612" y="82">EKS control plane</text><text class="s" x="612" y="101">auth mode: API</text><text class="s" x="612" y="118">private endpoint</text><text class="s" x="612" y="135">public, allow-listed</text><rect class="ng fade" x="300" y="420" width="580" height="268" rx="8" pathLength="1"/><text class="m" x="868" y="440" text-anchor="end">managed node group · min 1, max 2</text><rect class="node draw" x="316" y="452" width="258" height="228" rx="6" pathLength="1"/><text class="t" x="330" y="474">node · t3.medium · AL2023</text><rect class="chip draw" x="330" y="488" width="70" height="22" rx="4" pathLength="1"/><text class="c" x="338" y="503">vpc-cni</text><rect class="chip draw" x="406" y="488" width="82" height="22" rx="4" pathLength="1"/><text class="c" x="414" y="503">kube-proxy</text><rect class="chip draw" x="494" y="488" width="68" height="22" rx="4" pathLength="1"/><text class="c" x="502" y="503">coredns</text><rect class="ghost fade" x="640" y="452" width="224" height="228" rx="6" pathLength="1"/><text class="m" x="752" y="560" text-anchor="middle">second node</text><text class="m" x="752" y="576" text-anchor="middle">when it scales</text><path class="conn draw" d="M612 196 L612 212 L598 212 L598 436 L441 436 L441 452" pathLength="1"/><polygon class="head" points="441,452 437,445 445,445"/></g>
-<g class="L" data-layer="4"><rect class="box draw " x="768" y="60" width="160" height="136" rx="6" pathLength="1"/><text class="t" x="780" y="82">Cluster identity</text><text class="s" x="780" y="101">IRSA OIDC provider</text><text class="s" x="780" y="118">ebs-csi IAM role</text><text class="s" x="780" y="135">access entry: admin</text><text class="s" x="780" y="152">no aws-auth map</text><rect class="chip draw" x="330" y="526" width="132" height="22" rx="4" pathLength="1"/><text class="c" x="338" y="541">ebs-csi controller</text><path class="conn draw" d="M462 537 L611 537 L611 408 L848 408 L848 197" pathLength="1"/><polygon class="head" points="848,197 852,204 844,204"/><path class="conn draw" d="M768 128 L757 128" pathLength="1"/><polygon class="head" points="757,128 764,124 764,132"/></g>
-<g class="L" data-layer="5"><rect class="frame draw" x="16" y="16" width="196" height="728" rx="10" pathLength="1"/><text class="f" x="32" y="42">GitHub</text><rect class="box draw " x="30" y="60" width="168" height="160" rx="6" pathLength="1"/><text class="t" x="40" y="82">terraform-eks-</text><text class="t" x="40" y="98">platform</text><text class="s" x="40" y="117">terraform-pr.yml</text><text class="s" x="40" y="134">plan on every PR</text><text class="s" x="40" y="151">terraform-apply.yml</text><text class="s" x="40" y="168">gated by dev-apply</text><text class="s" x="40" y="185">OIDC, no stored keys</text><rect class="box draw " x="424" y="60" width="164" height="136" rx="6" pathLength="1"/><text class="t" x="436" y="82">CI access</text><text class="s" x="436" y="101">GitHub OIDC provider</text><text class="s" x="436" y="118">plan role: PRs</text><text class="s" x="436" y="135">apply role: main</text><text class="s" x="436" y="152">least privilege</text><path class="conn draw" d="M198 140 L222 140 L222 207 L506 207 L506 197" pathLength="1"/><polygon class="head" points="506,197 510,204 502,204"/><path class="conn draw" d="M424 128 L413 128" pathLength="1"/><polygon class="head" points="413,128 420,124 420,132"/></g>
-<g class="L" data-layer="6"><rect class="box draw " x="30" y="536" width="168" height="152" rx="6" pathLength="1"/><text class="t" x="40" y="558">terraform-eks-</text><text class="t" x="40" y="574">platform-gitops</text><text class="s" x="40" y="593">clusters/dev</text><text class="s" x="40" y="610">infrastructure</text><text class="s" x="40" y="627">apps: podinfo</text><text class="s" x="40" y="644">read-only deploy key</text><rect class="chip draw" x="330" y="572" width="170" height="22" rx="4" pathLength="1"/><text class="c" x="338" y="587">flux source-controller</text><rect class="chip draw" x="330" y="604" width="186" height="22" rx="4" pathLength="1"/><text class="c" x="338" y="619">flux kustomize-controller</text><rect class="chip draw" x="330" y="640" width="74" height="22" rx="4" pathLength="1"/><text class="c" x="338" y="655">podinfo</text><path class="conn draw" d="M198 583 L329 583" pathLength="1"/><polygon class="head" points="329,583 322,587 322,579"/></g>
-</svg>
-          <svg class="dg dg-tall" viewBox="0 0 360 878" data-camera='[[0,4,160,210,130],[0.15,4,160,210,130],[0.2,8,392,352,160],[0.3,8,392,352,160],[0.35,4,282,352,388],[0.45,4,282,352,388],[0.5,4,282,352,418],[0.6,4,282,352,418],[0.65,0,0,360,330],[0.8,0,0,360,330],[0.86,0,560,360,300],[0.905,0,560,360,300],[0.955,0,0,360,878]]' role="img" aria-labelledby="dg-tall-t dg-tall-d" focusable="false">
-<title id="dg-tall-t">Architecture of the Terraform EKS Platform</title>
-<desc id="dg-tall-d">An AWS account holding an S3 bucket for Terraform state, a VPC across two availability zones with public and private subnets, a NAT gateway and an S3 gateway endpoint, an EKS control plane with a managed node group in the private subnets, IRSA and access entries for identity, IAM roles that GitHub Actions assumes through OIDC for plan and apply, and Flux inside the cluster pulling from a separate GitOps repository. The numbered captions next to the drawing describe each layer.</desc>
-<g class="L" data-layer="1"><rect class="frame draw" x="4" y="160" width="352" height="710" rx="10" pathLength="1"/><text class="f" x="14" y="177">AWS account</text><rect class="box draw " x="12" y="190" width="166" height="86" rx="6" pathLength="1"/><text class="t" x="20" y="208">Terraform state</text><text class="s" x="20" y="224">S3 bucket, versioned</text><text class="s" x="20" y="239">encrypted, private</text><text class="s" x="20" y="254">native S3 lockfile</text><text class="s" x="20" y="269">made by bootstrap/</text></g>
-<g class="L" data-layer="2"><rect class="vpc draw" x="12" y="398" width="336" height="450" rx="8" pathLength="1"/><text class="f" x="22" y="414">VPC 10.0.0.0/16</text><rect class="az fade" x="20" y="422" width="186" height="414" rx="6" pathLength="1"/><text class="z" x="28" y="437">AZ 1</text><rect class="az fade" x="214" y="422" width="126" height="414" rx="6" pathLength="1"/><text class="z" x="332" y="437" text-anchor="end">AZ 2</text><rect class="pub draw" x="28" y="446" width="170" height="56" rx="5" pathLength="1"/><text class="s" x="36" y="462">public /24</text><text class="s" x="36" y="477">10.0.240.0/24</text><text class="m" x="36" y="492">load balancers</text><rect class="chip draw" x="114" y="452" width="78" height="18" rx="4" pathLength="1"/><text class="c" x="122" y="465">NAT gateway</text><rect class="pub draw" x="222" y="446" width="110" height="56" rx="5" pathLength="1"/><text class="s" x="230" y="462">public /24</text><text class="s" x="230" y="477">10.0.241.0/24</text><text class="m" x="230" y="492">load balancers</text><rect class="priv draw" x="28" y="510" width="170" height="318" rx="5" pathLength="1"/><text class="s" x="36" y="525">private /20</text><text class="s" x="36" y="540">10.0.0.0/20</text><rect class="priv draw" x="222" y="510" width="110" height="318" rx="5" pathLength="1"/><text class="s" x="230" y="525">private /20</text><text class="s" x="230" y="540">10.0.16.0/20</text><rect class="chip draw" x="110" y="838" width="140" height="20" rx="4" pathLength="1"/><text class="c" x="118" y="852">S3 gateway endpoint</text></g>
-<g class="L" data-layer="3"><rect class="box draw " x="12" y="286" width="166" height="86" rx="6" pathLength="1"/><text class="t" x="20" y="304">EKS control plane</text><text class="s" x="20" y="320">auth mode: API</text><text class="s" x="20" y="335">private endpoint</text><text class="s" x="20" y="350">public, allow-listed</text><rect class="ng fade" x="34" y="550" width="292" height="270" rx="8" pathLength="1"/><text class="m" x="318" y="813" text-anchor="end">node group · min 1, max 2</text><rect class="node draw" x="40" y="568" width="150" height="230" rx="6" pathLength="1"/><text class="t" x="48" y="585">node · t3.medium</text><text class="s" x="48" y="600">Amazon Linux 2023</text><rect class="chip draw" x="48" y="608" width="134" height="18" rx="4" pathLength="1"/><text class="c" x="56" y="621">vpc-cni</text><rect class="chip draw" x="48" y="630" width="134" height="18" rx="4" pathLength="1"/><text class="c" x="56" y="643">kube-proxy</text><rect class="chip draw" x="48" y="652" width="134" height="18" rx="4" pathLength="1"/><text class="c" x="56" y="665">coredns</text><rect class="ghost fade" x="228" y="568" width="98" height="230" rx="6" pathLength="1"/><text class="m" x="277" y="650" text-anchor="middle">second node</text><text class="m" x="277" y="664" text-anchor="middle">when it scales</text><path class="conn draw" d="M160 372 L160 380 L194 380 L194 559 L150 559 L150 567" pathLength="1"/><polygon class="head" points="150,567 146,560 154,560"/></g>
-<g class="L" data-layer="4"><rect class="box draw " x="186" y="286" width="162" height="86" rx="6" pathLength="1"/><text class="t" x="194" y="304">Cluster identity</text><text class="s" x="194" y="320">IRSA OIDC provider</text><text class="s" x="194" y="335">ebs-csi IAM role</text><text class="s" x="194" y="350">access entry: admin</text><text class="s" x="194" y="365">no aws-auth map</text><rect class="chip draw" x="48" y="680" width="134" height="18" rx="4" pathLength="1"/><text class="c" x="56" y="693">ebs-csi controller</text><path class="conn draw" d="M182 689 L210 689 L210 386 L267 386 L267 373" pathLength="1"/><polygon class="head" points="267,373 271,380 263,380"/><path class="conn draw" d="M186 329 L179 329" pathLength="1"/><polygon class="head" points="179,329 186,325 186,333"/></g>
-<g class="L" data-layer="5"><rect class="frame draw" x="4" y="4" width="352" height="146" rx="10" pathLength="1"/><text class="f" x="14" y="17">GitHub</text><rect class="box draw " x="12" y="24" width="166" height="118" rx="6" pathLength="1"/><text class="t" x="20" y="42">terraform-eks-</text><text class="t" x="20" y="58">platform</text><text class="s" x="20" y="74">terraform-pr.yml</text><text class="s" x="20" y="89">plan on every PR</text><text class="s" x="20" y="104">terraform-apply.yml</text><text class="s" x="20" y="119">gated by dev-apply</text><text class="s" x="20" y="134">OIDC, no stored keys</text><rect class="box draw " x="186" y="190" width="162" height="86" rx="6" pathLength="1"/><text class="t" x="194" y="208">CI access</text><text class="s" x="194" y="224">GitHub OIDC provider</text><text class="s" x="194" y="239">plan role: PRs</text><text class="s" x="194" y="254">apply role: main</text><text class="s" x="194" y="269">least privilege</text><path class="conn draw" d="M95 142 L95 182 L267 182 L267 189" pathLength="1"/><polygon class="head" points="267,189 263,182 271,182"/><path class="conn draw" d="M186 233 L179 233" pathLength="1"/><polygon class="head" points="179,233 186,229 186,237"/></g>
-<g class="L" data-layer="6"><rect class="box draw " x="186" y="24" width="162" height="118" rx="6" pathLength="1"/><text class="t" x="194" y="42">terraform-eks-</text><text class="t" x="194" y="58">platform-gitops</text><text class="s" x="194" y="74">clusters/dev</text><text class="s" x="194" y="89">infrastructure</text><text class="s" x="194" y="104">apps: podinfo</text><text class="s" x="194" y="119">read-only deploy key</text><text class="m" x="48" y="714">flux</text><rect class="chip draw" x="48" y="720" width="134" height="18" rx="4" pathLength="1"/><text class="c" x="56" y="733">source-controller</text><rect class="chip draw" x="48" y="742" width="134" height="18" rx="4" pathLength="1"/><text class="c" x="56" y="755">kustomize-controller</text><rect class="chip draw" x="48" y="770" width="134" height="18" rx="4" pathLength="1"/><text class="c" x="56" y="783">podinfo</text><path class="conn draw" d="M348 83 L352 83 L352 729 L183 729" pathLength="1"/><polygon class="head" points="183,729 190,725 190,733"/></g>
-</svg>
+  <dialog class="menu" id="menu" aria-label="Site menu">
+    <div class="menu__inner">
+      <button class="menu__close" type="button">Close</button>
+      <nav aria-label="Mobile">
+        <a href="#work">Work</a>
+        <a href="#story">Story</a>
+        <a href="#credentials">Credentials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#100;&#100;&#104;&#97;&#114;&#116;&#104;&#116;&#112;&#49;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">Email me <span class="btn__arrow" aria-hidden="true">→</span></a>
+    </div>
+  </dialog>
+
+  <main id="content">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <p class="eyebrow eyebrow--accent" data-hero-fade>DevOps &amp; Platform Engineer</p>
+      <h1 class="hero__title" id="hero-title" data-split>I build the platform your <em>releases</em> run&nbsp;on.</h1>
+      <div class="hero__rule" data-hero-rule></div>
+      <div class="hero__meta">
+        <p class="hero__sub" data-hero-fade>DevOps and platform engineer. I build and run AWS and Kubernetes platforms, and automate the work around them, so teams release more often and recover faster.</p>
+        <p class="hero__proof" data-hero-fade>
+          <span>Five years in DevOps</span>
+          <span>Certified Kubernetes Administrator</span>
+          <span>AWS Solutions Architect – Associate</span>
+          <span>Chennai, open to Bangalore</span>
+        </p>
+      </div>
+      <div class="hero__ctas" data-hero-fade>
+        <a class="btn" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#100;&#100;&#104;&#97;&#114;&#116;&#104;&#116;&#112;&#49;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">Email me <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a class="link" href="assets/docs/Siddharth_S_Resume.pdf" download>Resume (PDF) <span aria-hidden="true">↓</span></a>
+        <a class="link" href="https://www.linkedin.com/in/siddharthtps" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></p>
+    </section>
+
+    <!-- ============ THE RECORD ============ -->
+    <section class="record wrap" id="record" data-running="The record" aria-labelledby="record-title">
+      <h2 class="label" id="record-title" data-reveal><span>The record</span></h2>
+      <dl class="stats">
+        <div class="stat" data-reveal>
+          <dt class="stat__label">microservices moved to Amazon EKS</dt>
+          <dd class="stat__num" aria-label="15"><span data-count="15">15</span></dd>
+          <dd class="stat__ctx">120+ pods</dd>
+        </div>
+        <div class="stat" data-reveal>
+          <dt class="stat__label">lower cloud spend</dt>
+          <dd class="stat__num" aria-label="About 40 percent">~<span data-count="40">40</span>%</dd>
+          <dd class="stat__ctx">Savings Plans, rightsizing, autoscaling, S3 Intelligent-Tiering</dd>
+        </div>
+        <div class="stat" data-reveal>
+          <dt class="stat__label">deploy time</dt>
+          <dd class="stat__num" aria-label="From 45 minutes to under 10 minutes">45<span class="stat__arrow">→</span>&lt;10<small>min</small></dd>
+          <dd class="stat__ctx">Standardised Docker builds and pipelines</dd>
+        </div>
+        <div class="stat" data-reveal>
+          <dt class="stat__label">shorter pipelines</dt>
+          <dd class="stat__num" aria-label="68 percent"><span data-count="68">68</span>%</dd>
+          <dd class="stat__ctx">Repositories moved from Jenkins to GitHub Actions</dd>
+        </div>
+        <div class="stat" data-reveal>
+          <dt class="stat__label">releases a week</dt>
+          <dd class="stat__num" aria-label="15 to 20"><span data-count="15">15</span>–<span data-count="20">20</span></dd>
+          <dd class="stat__ctx">Production release cadence</dd>
+        </div>
+        <div class="stat" data-reveal>
+          <dt class="stat__label">lower mean time to recovery</dt>
+          <dd class="stat__num" aria-label="45 percent"><span data-count="45">45</span>%</dd>
+          <dd class="stat__ctx">With 30% fewer incidents, from dashboards, alerting and on-call runbooks</dd>
+        </div>
+      </dl>
+      <p class="footnote" data-reveal>Figures from production work at Incedo, 2021 to 2025.</p>
+    </section>
+
+    <!-- ============ MISSION ============ -->
+    <section class="mission wrap" id="mission" data-running="01 — Why this site exists" aria-labelledby="mission-title">
+      <h2 class="label" id="mission-title" data-reveal><span><b>01</b> — Why this site exists</span></h2>
+      <blockquote class="mission__quote" data-words>
+        <p>Claims are cheap. Evidence you can check isn’t.</p>
+      </blockquote>
+      <p class="mission__body" data-reveal>Every project on this page links to something you can read: the code, the design notes, and what is finished and what is still in progress. Short recordings of each project running will be added as they are made. Where the code belongs to an employer, I say so and describe the work instead. The aim is simple: you should be able to judge my work in a few minutes, and trust what you see.</p>
+    </section>
+
+    <!-- ============ PILLARS ============ -->
+    <section class="pillars wrap" id="pillars" data-running="02 — What I do" aria-labelledby="pillars-title">
+      <h2 class="label" id="pillars-title" data-reveal><span><b>02</b> — What I do</span></h2>
+      <div class="pillars__grid">
+        <article class="pillar" data-reveal>
+          <span class="pillar__rule" data-rule></span>
+          <p class="pillar__num" aria-hidden="true">i.</p>
+          <h3 class="pillar__title">Build the platform</h3>
+          <p>I run AWS and Kubernetes platforms defined as code, from networking and identity up to the cluster: CloudFormation at work, Terraform in my own projects. Changes come from a reviewed template, not from clicks in a console.</p>
+          <ul class="chips" aria-label="Tools"><li><code>cloudformation</code></li><li><code>terraform</code></li><li><code>eks</code></li><li><code>vpc</code></li><li><code>iam</code></li></ul>
+        </article>
+        <article class="pillar" data-reveal>
+          <span class="pillar__rule" data-rule></span>
+          <p class="pillar__num" aria-hidden="true">ii.</p>
+          <h3 class="pillar__title">Ship it safely</h3>
+          <p>I build pipelines that release several times a week without drama: tested, scanned, staged and reversible. GitOps keeps the cluster in step with what is in Git.</p>
+          <ul class="chips" aria-label="Tools"><li><code>github-actions</code></li><li><code>jenkins</code></li><li><code>flux</code></li><li><code>trivy</code></li><li><code>docker</code></li></ul>
+        </article>
+        <article class="pillar" data-reveal>
+          <span class="pillar__rule" data-rule></span>
+          <p class="pillar__num" aria-hidden="true">iii.</p>
+          <h3 class="pillar__title">Keep it running, automate the rest</h3>
+          <p>I instrument services so problems surface early and recovery is fast. Then I automate the repeat work around them, including AI-assisted review.</p>
+          <ul class="chips" aria-label="Tools"><li><code>cloudwatch</code></li><li><code>new-relic</code></li><li><code>python</code></li><li><code>runbooks</code></li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ SELECTED WORK ============ -->
+    <section class="work" id="work" data-running="03 — Selected work" aria-labelledby="work-title">
+      <div class="wrap work__intro">
+        <h2 class="label" id="work-title" data-reveal><span><b>03</b> — Selected work</span></h2>
+        <p class="work__lede" data-reveal>Three projects, weighted honestly: a platform I designed and built in Terraform, an Action I’m preparing for release, and a tool from my day job whose code I can’t show.</p>
+        <ol class="work__index" data-reveal aria-label="Chapters">
+          <li><a href="#ch-eks"><span>01</span> Terraform EKS Platform</a></li>
+          <li><a href="#ch-guardian"><span>02</span> PR Guardian Action</a></li>
+          <li><a href="#ch-bot"><span>03</span> AI pull-request validation bot</a></li>
+        </ol>
+      </div>
+
+      <!-- Chapter 01 -->
+      <article class="chapter" id="ch-eks" data-running="03 — Chapter 01 · Terraform EKS Platform" aria-labelledby="ch-eks-title">
+        <header class="chapter__head wrap" data-reveal>
+          <p class="chapter__kicker"><span>Chapter 01</span><span>Personal project · In progress</span></p>
+          <h3 class="chapter__title" id="ch-eks-title">Terraform EKS Platform</h3>
+          <span class="chapter__rule" data-rule></span>
+          <p class="chapter__standfirst">A small EKS platform built entirely in Terraform, designed to be planned on every pull request and delivered by GitOps, and to be cheap enough to create for an afternoon and destroy afterwards.</p>
+        </header>
+
+        <div class="dg" data-diagram>
+          <div class="dg__inner wrap">
+            <figure class="dg__figure">
+              <svg class="dg__svg" viewBox="0 0 1000 620" preserveAspectRatio="xMinYMid meet" role="img" aria-labelledby="dg-title dg-desc">
+                <title id="dg-title">Fig. 1 — Architecture of the Terraform EKS Platform, as designed</title>
+                <desc id="dg-desc">Built in six layers. One: an AWS account in ap-south-1 with a versioned, encrypted S3 state bucket. Two: a VPC across availability zones, with public subnets holding a single NAT gateway and an internet gateway, and private subnets holding an S3 gateway endpoint. Three: an EKS control plane and a managed node group in the private subnets. Four: EKS access entries that grant cluster access, and the EBS CSI driver’s controller, whose service account (ebs-csi-controller-sa) assumes an IAM role through IRSA so pods can use EBS volumes. Five: GitHub holds the Terraform repository; GitHub Actions plans on pull requests, runs a Trivy scan and applies after approval, authenticating to AWS through an IAM OIDC provider. Six: Flux controllers in the cluster pull manifests from a separate GitOps repository and reconcile the podinfo app.</desc>
+                <g id="dg-art">
+                  <!-- 1 State -->
+                  <g class="dg-step" data-step="1">
+                    <rect class="dg-draw dg-frame" x="280" y="20" width="700" height="580" pathLength="1"/>
+                    <text class="dg-label dg-label--frame" x="296" y="44">AWS account · ap-south-1</text>
+                    <rect class="dg-draw" x="300" y="72" width="160" height="70" pathLength="1"/>
+                    <text class="dg-label" x="314" y="97">S3 state bucket</text>
+                    <text class="dg-sub" x="314" y="116">versioned · encrypted</text>
+                    <text class="dg-sub" x="314" y="132">native locking</text>
+                  </g>
+                  <!-- 2 Network -->
+                  <g class="dg-step" data-step="2">
+                    <rect class="dg-draw dg-frame" x="300" y="164" width="660" height="418" pathLength="1"/>
+                    <text class="dg-label dg-label--frame" x="314" y="186">VPC · multi-AZ</text>
+                    <path class="dg-az" d="M630 196 V572"/>
+                    <text class="dg-sub" x="618" y="186" text-anchor="end">Zone A</text>
+                    <text class="dg-sub" x="924" y="186" text-anchor="end">Zone B</text>
+                    <rect class="dg-draw dg-subnet" x="316" y="200" width="628" height="78" pathLength="1"/>
+                    <text class="dg-sub dg-sub--caps" x="328" y="218">Public subnets</text>
+                    <rect class="dg-draw" x="350" y="228" width="200" height="40" pathLength="1"/>
+                    <text class="dg-label" x="364" y="253">NAT gateway (single)</text>
+                    <rect class="dg-draw" x="765" y="228" width="165" height="40" pathLength="1"/>
+                    <text class="dg-label" x="779" y="253">Internet gateway</text>
+                    <path class="dg-draw dg-line" d="M550 248 H765" pathLength="1"/>
+                    <rect class="dg-draw dg-subnet" x="316" y="292" width="628" height="276" pathLength="1"/>
+                    <text class="dg-sub dg-sub--caps" x="328" y="310">Private subnets</text>
+                    <rect class="dg-draw" x="350" y="440" width="230" height="44" pathLength="1"/>
+                    <text class="dg-label" x="364" y="458">S3 gateway endpoint</text>
+                    <text class="dg-sub" x="364" y="475">image pulls skip the NAT</text>
+                  </g>
+                  <!-- 3 Cluster -->
+                  <g class="dg-step" data-step="3">
+                    <rect class="dg-draw" x="350" y="322" width="230" height="52" pathLength="1"/>
+                    <text class="dg-label" x="364" y="345">EKS control plane</text>
+                    <text class="dg-sub" x="364" y="363">API allow-listed</text>
+                    <rect class="dg-draw" x="350" y="384" width="230" height="46" pathLength="1"/>
+                    <text class="dg-label" x="364" y="404">Managed node group</text>
+                    <text class="dg-sub" x="364" y="421">EC2 nodes, private subnets</text>
+                    <path class="dg-draw dg-line" d="M580 407 H600 V284 H500 V268" pathLength="1"/>
+                    <path class="dg-draw dg-line" d="M350 407 H332 V462 H350" pathLength="1"/>
+                  </g>
+                  <!-- 4 Identity: access entries + IRSA -->
+                  <g class="dg-step" data-step="4">
+                    <rect class="dg-draw" x="650" y="72" width="150" height="58" pathLength="1"/>
+                    <text class="dg-label" x="664" y="97">EKS access entries</text>
+                    <text class="dg-sub" x="664" y="116">IAM → cluster access</text>
+                    <rect class="dg-draw" x="812" y="72" width="156" height="58" pathLength="1"/>
+                    <text class="dg-label" x="826" y="97">IAM role (IRSA)</text>
+                    <text class="dg-sub" x="826" y="116">least privilege, no keys</text>
+                    <rect class="dg-draw" x="650" y="322" width="270" height="52" pathLength="1"/>
+                    <text class="dg-label" x="664" y="345">EBS CSI controller</text>
+                    <text class="dg-mono dg-mono--sm" x="664" y="363">ebs-csi-controller-sa</text>
+                    <rect class="dg-draw" x="650" y="398" width="270" height="44" pathLength="1"/>
+                    <text class="dg-label" x="664" y="425">EBS volumes for PVCs</text>
+                    <path class="dg-draw dg-line" d="M785 398 V374" pathLength="1"/>
+                    <path class="dg-dash" d="M920 348 H945 V130"/>
+                    <path class="dg-dash" d="M725 130 V304 H615 V348 H580"/>
+                  </g>
+                  <!-- 5 CI: GitHub, OIDC, Trivy, gated apply -->
+                  <g class="dg-step" data-step="5">
+                    <rect class="dg-draw dg-frame" x="20" y="40" width="220" height="540" pathLength="1"/>
+                    <text class="dg-label dg-label--frame" x="36" y="64">GitHub</text>
+                    <rect class="dg-draw" x="40" y="96" width="180" height="58" pathLength="1"/>
+                    <text class="dg-mono" x="54" y="121">terraform-eks-platform</text>
+                    <text class="dg-sub" x="54" y="140">Terraform + workflows</text>
+                    <rect class="dg-draw" x="40" y="200" width="180" height="70" pathLength="1"/>
+                    <text class="dg-label" x="54" y="226">GitHub Actions</text>
+                    <text class="dg-sub" x="54" y="245">plan on pull request</text>
+                    <text class="dg-sub" x="54" y="261">approval-gated apply</text>
+                    <rect class="dg-draw" x="40" y="300" width="180" height="50" pathLength="1"/>
+                    <text class="dg-label" x="54" y="322">Trivy scan</text>
+                    <text class="dg-sub" x="54" y="339">set to fail on high</text>
+                    <path class="dg-draw dg-line" d="M130 154 V200" pathLength="1"/>
+                    <path class="dg-draw dg-line" d="M130 270 V300" pathLength="1"/>
+                    <rect class="dg-draw" x="475" y="72" width="160" height="58" pathLength="1"/>
+                    <text class="dg-label" x="489" y="97">IAM OIDC provider</text>
+                    <text class="dg-sub" x="489" y="116">plan role · apply role</text>
+                    <path class="dg-draw dg-live" d="M220 235 H262 V152 H555 V130" pathLength="1"/>
+                    <path class="dg-draw dg-live" d="M475 107 H460" pathLength="1"/>
+                  </g>
+                  <!-- 6 Delivery: Flux -->
+                  <g class="dg-step" data-step="6">
+                    <rect class="dg-draw" x="40" y="440" width="180" height="58" pathLength="1"/>
+                    <text class="dg-mono" x="54" y="465">…-gitops repo</text>
+                    <text class="dg-sub" x="54" y="484">Flux manifests</text>
+                    <rect class="dg-draw" x="650" y="506" width="270" height="52" pathLength="1"/>
+                    <text class="dg-label" x="664" y="529">Flux controllers</text>
+                    <text class="dg-sub" x="664" y="547">pull from Git, reconcile podinfo</text>
+                    <path class="dg-draw dg-live" d="M650 532 H262 V469 H220" pathLength="1"/>
+                  </g>
+                </g>
+              </svg>
+              <figcaption class="figcap">Fig. 1 — The platform as it is designed in the repository, drawn from the README’s architecture diagram. It shows design intent, not a verified deployment.</figcaption>
+            </figure>
+
+            <ol class="dg__steps" aria-label="How the platform is designed to fit together">
+              <li class="dg__step" data-step-caption="1">
+                <p class="dg__step-k">State</p>
+                <p>Designed so every change starts from shared, locked state that outlives the platform: a versioned, encrypted S3 bucket with native locking.</p>
+              </li>
+              <li class="dg__step" data-step-caption="2">
+                <p class="dg__step-k">Network</p>
+                <p>Private by default and cheap to run: subnets across availability zones, a single NAT gateway, and a free S3 endpoint so image pulls skip the NAT.</p>
+              </li>
+              <li class="dg__step" data-step-caption="3">
+                <p class="dg__step-k">Cluster</p>
+                <p>An EKS control plane and a managed node group in private subnets, with the cluster API allow-listed to known addresses.</p>
+              </li>
+              <li class="dg__step" data-step-caption="4">
+                <p class="dg__step-k">Identity</p>
+                <p>Cluster access goes through EKS access entries, not a shared kubeconfig, and the EBS CSI driver’s controller gets least-privilege AWS access through IRSA, with no long-lived keys.</p>
+              </li>
+              <li class="dg__step" data-step-caption="5">
+                <p class="dg__step-k">CI</p>
+                <p>The pipeline is designed to authenticate with GitHub OIDC instead of stored keys, plan on every pull request, fail on high-severity Trivy findings, and apply only after approval.</p>
+              </li>
+              <li class="dg__step" data-step-caption="6">
+                <p class="dg__step-k">Delivery</p>
+                <p>Flux runs inside the cluster and pulls from a separate GitOps repository, so no CI system needs cluster credentials.</p>
+              </li>
+            </ol>
+
+            <!-- Phones: the same six layers as stacked, readable schematics (no JavaScript needed) -->
+            <div class="dg__mobile">
+              <p class="figcap dg__mobile-cap">Fig. 1 — The platform as it is designed in the repository, one layer at a time. Design intent, not a verified deployment.</p>
+              <ol class="dg__mlist" aria-label="How the platform is designed to fit together">
+                <li class="dg__step">
+                  <p class="dg__step-k">State</p>
+                  <div class="ms" aria-hidden="true">
+                    <div class="ms__frame"><span class="ms__k">AWS account · ap-south-1</span>
+                      <div class="ms__box"><b>S3 state bucket</b><small>versioned · encrypted · native locking</small></div>
+                    </div>
+                  </div>
+                  <p>Designed so every change starts from shared, locked state that outlives the platform.</p>
+                </li>
+                <li class="dg__step">
+                  <p class="dg__step-k">Network</p>
+                  <div class="ms" aria-hidden="true">
+                    <div class="ms__frame"><span class="ms__k">VPC · multi-AZ</span>
+                      <div class="ms__frame ms__frame--sub"><span class="ms__k">Public subnets</span>
+                        <div class="ms__row"><div class="ms__box"><b>NAT gateway</b><small>single</small></div><span class="ms__arrow">→</span><div class="ms__box"><b>Internet gateway</b></div></div>
+                      </div>
+                      <div class="ms__frame ms__frame--sub"><span class="ms__k">Private subnets</span>
+                        <div class="ms__box"><b>S3 gateway endpoint</b><small>image pulls skip the NAT</small></div>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Private by default and cheap to run, with subnets across availability zones.</p>
+                </li>
+                <li class="dg__step">
+                  <p class="dg__step-k">Cluster</p>
+                  <div class="ms" aria-hidden="true">
+                    <div class="ms__frame ms__frame--sub"><span class="ms__k">Private subnets</span>
+                      <div class="ms__box"><b>EKS control plane</b><small>API allow-listed</small></div>
+                      <span class="ms__arrow">↕</span>
+                      <div class="ms__box"><b>Managed node group</b><small>EC2 nodes</small></div>
+                    </div>
+                  </div>
+                  <p>Nodes stay in private subnets and reach the internet only through the NAT gateway.</p>
+                </li>
+                <li class="dg__step">
+                  <p class="dg__step-k">Identity</p>
+                  <div class="ms" aria-hidden="true">
+                    <div class="ms__row"><div class="ms__box"><b>EKS access entries</b><small>IAM → cluster access</small></div><span class="ms__arrow">→</span><div class="ms__box"><b>Control plane</b></div></div>
+                    <div class="ms__row"><div class="ms__box"><b>EBS CSI controller</b><small><code>ebs-csi-controller-sa</code></small></div><span class="ms__arrow">→</span><div class="ms__box"><b>IAM role (IRSA)</b><small>least privilege</small></div></div>
+                  </div>
+                  <p>Access goes through access entries, not a shared kubeconfig; the EBS CSI driver uses IRSA, with no long-lived keys.</p>
+                </li>
+                <li class="dg__step">
+                  <p class="dg__step-k">CI</p>
+                  <div class="ms" aria-hidden="true">
+                    <div class="ms__frame"><span class="ms__k">GitHub</span>
+                      <div class="ms__box"><b><code>terraform-eks-platform</code></b></div>
+                      <span class="ms__arrow">↓</span>
+                      <div class="ms__box"><b>GitHub Actions</b><small>plan on pull request · approval-gated apply</small></div>
+                      <span class="ms__arrow">↓</span>
+                      <div class="ms__box"><b>Trivy scan</b><small>set to fail on high severity</small></div>
+                    </div>
+                    <span class="ms__arrow ms__arrow--live">↓ OIDC, no stored keys</span>
+                    <div class="ms__row"><div class="ms__box ms__box--live"><b>IAM OIDC provider</b><small>plan role · apply role</small></div><span class="ms__arrow ms__arrow--live">→</span><div class="ms__box"><b>S3 state</b></div></div>
+                  </div>
+                  <p>Designed to plan on every pull request, block high-severity findings, and apply only after approval.</p>
+                </li>
+                <li class="dg__step">
+                  <p class="dg__step-k">Delivery</p>
+                  <div class="ms" aria-hidden="true">
+                    <div class="ms__box"><b><code>…-gitops</code> repo</b><small>Flux manifests</small></div>
+                    <span class="ms__arrow ms__arrow--live">↑ pulled by</span>
+                    <div class="ms__box ms__box--live"><b>Flux controllers</b><small>inside the cluster</small></div>
+                    <span class="ms__arrow">↓ reconcile</span>
+                    <div class="ms__box"><b><code>podinfo</code> pods</b></div>
+                  </div>
+                  <p>Flux pulls from Git, so no CI system needs cluster credentials.</p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="wrap">
+          <div class="recs">
+            <figure class="rec is-pending" data-rec>
+              <div class="rec__frame">
+                <video muted playsinline loop preload="none" width="960" height="600" poster="assets/video/provision-poster.svg" aria-describedby="rec-provision-alt"></video>
+                <p class="rec__pending" aria-hidden="true"><span class="rec__pending-k">Fig. 2 · Provision</span><span class="rec__pending-t">Recording coming</span></p>
+                <button class="rec__toggle" type="button" aria-pressed="false" aria-label="Pause recording" hidden>
+                  <span class="rec__icon" aria-hidden="true"></span>
+                </button>
+              </div>
+              <figcaption class="figcap">Fig. 2 — Will show <code>terraform apply</code> provisioning the VPC and EKS cluster from S3 remote state, shortened and with identifiers redacted. <span class="rec__status">Recording coming.</span></figcaption>
+              <details class="rec__alt" id="rec-provision-alt">
+                <summary>What this recording will show</summary>
+                <p>In <code>envs/dev</code>, <code>terraform plan</code> lists the resources to add, then <code>terraform apply</code> creates the VPC, the EKS cluster on a managed node group, IRSA and access entries. It should finish with <code>kubectl get nodes</code> showing the node as Ready.</p>
+              </details>
+            </figure>
+
+            <figure class="rec is-pending" data-rec>
+              <div class="rec__frame">
+                <video muted playsinline loop preload="none" width="960" height="600" poster="assets/video/deliver-poster.svg" aria-describedby="rec-deliver-alt"></video>
+                <p class="rec__pending" aria-hidden="true"><span class="rec__pending-k">Fig. 3 · Deliver</span><span class="rec__pending-t">Recording coming</span></p>
+                <button class="rec__toggle" type="button" aria-pressed="false" aria-label="Pause recording" hidden>
+                  <span class="rec__icon" aria-hidden="true"></span>
+                </button>
+              </div>
+              <figcaption class="figcap">Fig. 3 — Will show a Git commit reconciled by Flux, with <code>podinfo</code> rolling to the new revision and no manual <code>kubectl apply</code>. <span class="rec__status">Recording coming.</span></figcaption>
+              <details class="rec__alt" id="rec-deliver-alt">
+                <summary>What this recording will show</summary>
+                <p>On the left, a one-line commit to the GitOps repository changes the <code>podinfo</code> deployment. On the right, <code>flux reconcile kustomization</code> picks up the commit and <code>kubectl get pods -w</code> shows the pods rolling to the new revision.</p>
+              </details>
+            </figure>
+          </div>
+
+          <p class="facts__head" data-reveal>As designed in the repository</p>
+          <dl class="facts" data-reveal>
+            <div><dt>Remote state</dt><dd>S3, native locking</dd></div>
+            <div><dt>Network</dt><dd>Multi-AZ VPC, single NAT gateway</dd></div>
+            <div><dt>Cluster</dt><dd>Amazon EKS, managed nodes</dd></div>
+            <div><dt>Identity</dt><dd>Access entries, IRSA</dd></div>
+            <div><dt>CI</dt><dd>Plan on pull request, GitHub OIDC</dd></div>
+            <div><dt>Security gate</dt><dd>Trivy, set to fail on high</dd></div>
+            <div><dt>Delivery</dt><dd>Flux GitOps</dd></div>
+            <div><dt>Status</dt><dd>In progress</dd></div>
+          </dl>
+
+          <p class="chapter__links" data-reveal>
+            <a class="link" href="https://github.com/siddharthtp10/terraform-eks-platform" target="_blank" rel="noopener">View repository <span aria-hidden="true">↗</span></a>
+            <a class="link" href="https://github.com/siddharthtp10/terraform-eks-platform/blob/main/docs/interview-notes.md" target="_blank" rel="noopener">Read the design notes <span aria-hidden="true">↗</span></a>
+          </p>
+          <p class="chapter__credit" data-reveal>Built with Claude as a coding assistant; I ran and reviewed every stage.</p>
+        </div>
+      </article>
+
+      <!-- Chapter 02 -->
+      <article class="chapter" id="ch-guardian" data-running="03 — Chapter 02 · PR Guardian Action" aria-labelledby="ch-guardian-title">
+        <header class="chapter__head wrap" data-reveal>
+          <p class="chapter__kicker"><span>Chapter 02</span><span class="badge">In progress · Release candidate</span></p>
+          <h3 class="chapter__title" id="ch-guardian-title">PR Guardian Action</h3>
+          <span class="chapter__rule" data-rule></span>
+          <p class="chapter__standfirst">A GitHub Action that reviews infrastructure pull requests before a human has to. Rules decide; AI only advises.</p>
+        </header>
+        <div class="wrap guardian">
+          <div class="guardian__body" data-reveal>
+            <p>PR Guardian is designed to read the diff of a pull request that touches Terraform, Kubernetes YAML, GitHub Actions workflows or Dockerfiles, and run the added lines through a small set of readable rules. Findings are meant to land as one review with inline comments, most severe first, with re-runs updating that review instead of piling on. Posting reviews and re-run updates are still being verified on live pull requests before release.</p>
+            <p>By design, an optional AI layer adds advice on what regex rules can’t see. It is labelled advisory and never reaches the pass/fail gate. The Action doesn’t check out your code, and with no API key it talks to nothing but GitHub.</p>
+          </div>
+          <figure class="rec rec--wide is-pending" data-rec>
+            <div class="rec__frame">
+              <video muted playsinline loop preload="none" width="960" height="600" poster="assets/video/review-poster.svg" aria-describedby="rec-review-alt"></video>
+              <p class="rec__pending" aria-hidden="true"><span class="rec__pending-k">Fig. 4 · Review</span><span class="rec__pending-t">Recording coming</span></p>
+              <button class="rec__toggle" type="button" aria-pressed="false" aria-label="Pause recording" hidden>
+                <span class="rec__icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <figcaption class="figcap">Fig. 4 — Will show PR Guardian leaving rule-based inline comments on a demo infrastructure pull request, with the AI note marked advisory. <span class="rec__status">Recording coming.</span></figcaption>
+            <details class="rec__alt" id="rec-review-alt">
+              <summary>What this recording will show</summary>
+              <p>A draft demo pull request, opened from the repository’s intentionally insecure examples. The Files changed tab should show PR Guardian’s inline comments on risky lines, each with a rule ID and severity, plus one comment labelled as AI-generated advisory, and a red check because rule findings meet the fail threshold.</p>
+            </details>
+          </figure>
+          <p class="flow" data-reveal aria-label="How it works: diff, then rules engine, then inline comments, with an optional advisory AI note">
+            <span>diff</span><i aria-hidden="true">→</i><span>rules engine</span><i aria-hidden="true">→</i><span>inline comments</span><i aria-hidden="true">+</i><span class="flow__muted">advisory AI note</span>
+          </p>
+          <p class="chapter__links" data-reveal>
+            <a class="link" href="https://github.com/siddharthtp10/pr-guardian-action" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
+            <a class="link" href="https://github.com/siddharthtp10/pr-guardian-action/pulls" target="_blank" rel="noopener">Pull requests <span aria-hidden="true">↗</span></a>
+          </p>
+          <p class="chapter__credit" data-reveal>Built with Claude as a coding assistant; I ran and reviewed every stage.</p>
+        </div>
+      </article>
+
+      <!-- Chapter 03 -->
+      <article class="chapter chapter--minor" id="ch-bot" data-running="03 — Chapter 03 · AI pull-request validation bot" aria-labelledby="ch-bot-title">
+        <header class="chapter__head wrap" data-reveal>
+          <p class="chapter__kicker"><span>Chapter 03</span><span>Work project · Code private</span></p>
+          <h3 class="chapter__title" id="ch-bot-title">AI pull-request validation bot</h3>
+          <span class="chapter__rule" data-rule></span>
+          <p class="chapter__standfirst">An internal bot that checks pull requests against team standards before review. It started as a hackathon entry and is now part of how about 150 developers ship.</p>
+        </header>
+        <div class="wrap bot">
+          <dl class="minis" data-reveal>
+            <div><dt>Hackathon</dt><dd>Runner-up</dd></div>
+            <div><dt>Developers using it</dt><dd>~150</dd></div>
+            <div><dt>Saved per pull request</dt><dd>15+ min</dd></div>
+          </dl>
+          <div class="bot__case" data-reveal>
+            <div>
+              <h4>Problem</h4>
+              <p>Reviewers spent their first pass on mechanical checks, so feedback on design and risk came late.</p>
+            </div>
+            <div>
+              <h4>Approach</h4>
+              <p>A bot validates each pull request against the team’s standards automatically and leaves inline review feedback, so reviewers start from a clean baseline.</p>
+            </div>
+            <div>
+              <h4>Result</h4>
+              <p>A hackathon runner-up, then adopted across the team: about 150 developers, saving 15+ minutes per pull request.</p>
+            </div>
+          </div>
+          <figure class="bot__fig" data-reveal>
+            <svg class="bot__svg" viewBox="0 0 720 120" role="img" aria-labelledby="bot-title bot-desc">
+              <title id="bot-title">Fig. 5 — Schematic of the validation bot</title>
+              <desc id="bot-desc">A pull request goes to the validation bot, which runs the team’s standards checks and leaves inline review feedback on the pull request.</desc>
+              <rect x="10" y="34" width="130" height="52"/><text x="75" y="65" text-anchor="middle">Pull request</text>
+              <rect x="180" y="34" width="130" height="52"/><text x="245" y="65" text-anchor="middle">Validation bot</text>
+              <rect x="350" y="34" width="130" height="52"/><text x="415" y="65" text-anchor="middle">Standards checks</text>
+              <rect x="520" y="34" width="190" height="52" class="is-live"/><text x="615" y="65" text-anchor="middle">Inline review feedback</text>
+              <path d="M140 60 H180 M310 60 H350 M480 60 H520"/>
+            </svg>
+            <div class="ms bot__mflow" role="img" aria-label="Fig. 5 — A pull request goes to the validation bot, which runs the team’s standards checks and leaves inline review feedback on the pull request.">
+              <div class="ms__box"><b>Pull request</b></div><span class="ms__arrow">↓</span>
+              <div class="ms__box"><b>Validation bot</b></div><span class="ms__arrow">↓</span>
+              <div class="ms__box"><b>Standards checks</b></div><span class="ms__arrow ms__arrow--live">↓</span>
+              <div class="ms__box ms__box--live"><b>Inline review feedback</b></div>
+            </div>
+            <figcaption class="figcap">Fig. 5 — Schematic only. Code and internals are private to my employer; I’m happy to walk through the design in an interview.</figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ STORY ============ -->
+    <section class="story wrap" id="story" data-running="04 — How I got here" aria-labelledby="story-title">
+      <h2 class="label" id="story-title" data-reveal><span><b>04</b> — How I got here</span></h2>
+      <div class="story__grid">
+        <figure class="story__portrait" data-reveal>
+          <picture>
+            <source type="image/avif" srcset="assets/img/siddharth-400.avif 400w, assets/img/siddharth-800.avif 800w" sizes="(min-width: 1024px) 30vw, 60vw">
+            <source type="image/webp" srcset="assets/img/siddharth-400.webp 400w, assets/img/siddharth-800.webp 800w" sizes="(min-width: 1024px) 30vw, 60vw">
+            <img src="assets/img/siddharth-800.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Portrait of Siddharth S in a navy suit and white shirt against a dark grey backdrop.">
+          </picture>
+          <figcaption class="figcap">Siddharth S, Chennai.</figcaption>
         </figure>
-        <div class="arch__text">
-          <h3 id="arch-h" class="arch__h">How the platform fits together</h3>
-          <ol class="arch__legend" aria-hidden="true">
-            <li data-step="0">State</li><li data-step="1">Network</li><li data-step="2">Cluster</li>
-            <li data-step="3">Identity</li><li data-step="4">CI</li><li data-step="5">GitOps</li>
-          </ol>
-          <ol class="arch__caps">
-            <li class="cap" data-step="0">
-              <h4>Remote state</h4>
-              <p>A separate <code>bootstrap/</code> stack, on local state, creates the S3 bucket that holds every other stack's state: versioned, encrypted, public access blocked, and locked with Terraform's native S3 lockfile, so there is no DynamoDB table to run.</p>
-            </li>
-            <li class="cap" data-step="1">
-              <h4>Network</h4>
-              <p>A VPC on 10.0.0.0/16 across two availability zones. Every pod takes a VPC address, so the private /20 subnets get the room; the public /24s hold the NAT gateway and load balancers. One NAT gateway keeps cost down, and an S3 gateway endpoint keeps image pulls off it.</p>
-            </li>
-            <li class="cap" data-step="2">
-              <h4>Cluster</h4>
-              <p>EKS with a managed node group on Amazon Linux 2023 in the private subnets: one t3.medium that can scale to two. The API has a private endpoint and a public one limited to allow-listed addresses. Add-ons: vpc-cni, kube-proxy, coredns and the EBS CSI driver.</p>
-            </li>
-            <li class="cap" data-step="3">
-              <h4>Identity</h4>
-              <p>Authentication runs on access entries only, with no hand-edited aws-auth ConfigMap: one admin principal gets the cluster admin policy. IRSA is on, and the EBS CSI controller is the worked example: its service account token is exchanged for its own IAM role.</p>
-            </li>
-            <li class="cap" data-step="4">
-              <h4>CI through GitHub OIDC</h4>
-              <!-- TODO: restore present tense after the first green CI run -->
-              <p>It is designed so that pull requests run fmt, validate, tflint and a Trivy scan, then post a read-only plan as a comment with account IDs and IPs redacted. Plan and apply use separate short-lived roles, and apply is designed to run only from main, after approval in the <code>dev-apply</code> environment. No AWS keys are stored, and destroy is deliberately kept out of CI.</p>
-            </li>
-            <li class="cap" data-step="5">
-              <h4>GitOps with Flux</h4>
-              <p>Flux's source and kustomize controllers pull a separate GitOps repository over a read-only deploy key and compare the cluster with Git every minute. It is a separate repository so Flux's commits do not collide with branch protection on the platform repo; podinfo is the demo app.</p>
-            </li>
-          </ol>
+        <div class="story__text">
+          <div class="story__essay" data-reveal>
+            <p class="story__lead">I trained as an electrical and electronics engineer, and I still think about systems the way that discipline taught me: inputs, failure modes, and what happens under load.</p>
+            <p>I joined Incedo in August 2021 to work on CI/CD and cloud infrastructure, and I have stayed close to production for the five years since. Between 2021 and 2025 I led the migration of fifteen microservices to Amazon EKS and moved our repositories from Jenkins to GitHub Actions. In September 2025 I moved into platform automation at Incedo: EKS operations, access management and deployments.</p>
+            <p>Outside work I build in public with Terraform and GitHub Actions, to widen a toolkit that grew up on CloudFormation. I’m based in Chennai and looking for platform and DevOps roles in Bangalore.</p>
+          </div>
+          <div class="timeline">
+            <span class="timeline__line" aria-hidden="true"></span>
+            <ol class="timeline__list" aria-label="Timeline">
+            <li class="timeline__item"><p class="timeline__when">2017 – 2021</p><p>B.Tech, Electrical, Electronics and Communications Engineering, SRM University of Science and Technology</p></li>
+            <li class="timeline__item"><p class="timeline__when">Aug 2021</p><p>Joined Incedo as a DevOps Engineer: CI/CD and cloud infrastructure</p></li>
+            <li class="timeline__item"><p class="timeline__when">2021 – 2025</p><p>Led the migration of 15 microservices to Amazon EKS</p></li>
+            <li class="timeline__item"><p class="timeline__when">2021 – 2025</p><p>Moved repositories from Jenkins to GitHub Actions</p></li>
+            <li class="timeline__item"><p class="timeline__when">Sep 2025 – now</p><p>Platform Automation at Incedo: EKS operations, access management, deployments</p></li>
+            <li class="timeline__item"><p class="timeline__when">2026</p><p>Building the Terraform EKS Platform and PR Guardian in public</p></li>
+            </ol>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="wrap feature__after" data-sc-act="flow">
-      <div class="after" data-sc-in>
-        <h3 class="h3">Built to be destroyed</h3>
-        <!-- TODO: hourly running cost left out on purpose (owner's call). -->
-        <p>Nothing is meant to run overnight. The teardown has a set order: suspend Flux and remove the apps, destroy the platform, then the CI access, and last the state bucket, which needs a deliberate code change before it can go.</p>
+    <!-- ============ CREDENTIALS ============ -->
+    <section class="creds wrap" id="credentials" data-running="05 — Credentials &amp; toolkit" aria-labelledby="creds-title">
+      <h2 class="label" id="creds-title" data-reveal><span><b>05</b> — Credentials &amp; toolkit</span></h2>
+      <div class="creds__grid">
+        <article class="cert" data-reveal>
+          <p class="cert__issuer">The Linux Foundation</p>
+          <h3 class="cert__name">Certified Kubernetes Administrator</h3>
+          <p class="cert__meta">CKA · Valid to December 2027</p>
+        </article>
+        <article class="cert" data-reveal>
+          <p class="cert__issuer">Amazon Web Services</p>
+          <h3 class="cert__name">AWS Certified Solutions Architect – Associate</h3>
+          <p class="cert__meta">SAA</p>
+        </article>
       </div>
-    </div>
-  </article>
+      <dl class="toolkit" data-reveal>
+        <div><dt>Cloud</dt><dd>AWS: EKS, EC2, VPC, IAM, S3, EFS, Amazon ECR, CloudWatch, Secrets Manager, KMS</dd></div>
+        <div><dt>Infrastructure as code</dt><dd>CloudFormation (production), Terraform (personal projects)</dd></div>
+        <div><dt>Containers</dt><dd>Kubernetes, Docker, Helm, Kustomize, Flux, RBAC, HPA/VPA</dd></div>
+        <div><dt>CI/CD</dt><dd>GitHub Actions, Jenkins, Bitbucket, Git, Gradle, Maven</dd></div>
+        <div><dt>Observability</dt><dd>CloudWatch, New Relic, Elastic</dd></div>
+        <div><dt>Languages</dt><dd>Python, Bash, YAML</dd></div>
+        <div><dt>Systems</dt><dd>Linux</dd></div>
+        <div><dt>Practices</dt><dd>SRE practices, FinOps, DevSecOps</dd></div>
+      </dl>
+    </section>
 
-  <!-- ====================================================== feature: guardian -->
-  <section id="guardian" class="chapter feature-b" data-chapter="PR Guardian Action" data-sc-act="flow" aria-labelledby="guardian-h">
-    <div class="wrap feature-b__grid">
-      <header class="feature-b__head" data-sc-in>
-        <p class="kicker">Personal project</p>
-        <h2 id="guardian-h" class="h2">PR Guardian Action</h2>
-        <p class="status"><span class="status__dot" aria-hidden="true"></span>In progress, release candidate</p>
-      </header>
-      <div class="feature-b__body" data-sc-in>
-        <p class="lede">A generic GitHub Action that reviews pull requests touching Terraform, Kubernetes YAML, workflows and Dockerfiles.</p>
-        <p>A rules engine does the reviewing and leaves inline comments on the lines that need attention. An optional AI layer can add notes on top, and it is built so that it never fails a check on its own.</p>
-        <p class="feature__link"><a href="https://github.com/siddharthtp10/pr-guardian-action">See the repository</a></p>
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="contact" data-running="06 — Contact" aria-labelledby="contact-title">
+      <div class="contact__bg" aria-hidden="true"></div>
+      <div class="contact__inner wrap">
+        <p class="label label--inverse"><span><b>06</b> — Contact</span></p>
+        <h2 class="contact__title" id="contact-title" data-chars>Let’s talk.</h2>
+        <p class="contact__line">Hiring for a platform or DevOps role? Email is the quickest way to reach me.</p>
+        <div class="contact__email">
+          <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#105;&#100;&#100;&#104;&#97;&#114;&#116;&#104;&#116;&#112;&#49;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#115;&#105;&#100;&#100;&#104;&#97;&#114;&#116;&#104;&#116;&#112;&#49;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
+          <button class="copy" type="button" data-copy="&#115;&#105;&#100;&#100;&#104;&#97;&#114;&#116;&#104;&#116;&#112;&#49;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">Copy</button>
+          <span class="sr-only" aria-live="polite" data-copy-status></span>
+        </div>
+        <p class="contact__links">
+          <a class="link link--inverse" href="https://www.linkedin.com/in/siddharthtps" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+          <a class="link link--inverse" href="assets/docs/Siddharth_S_Resume.pdf" download>Resume (PDF) <span aria-hidden="true">↓</span></a>
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- ===================================================== feature: validator -->
-  <section id="validator" class="chapter" data-chapter="Validation bot" data-sc-act="flow" aria-labelledby="validator-h">
-    <div class="wrap">
-      <aside class="sidebar" data-sc-in aria-labelledby="validator-h">
-        <p class="kicker">Work project · code is private</p>
-        <h2 id="validator-h" class="h3">AI pull-request validation bot</h2>
-        <p>It started as a hackathon entry that finished runner-up, and the team then adopted it into everyday work. It reviews infrastructure-as-code, config and YAML on every Bitbucket pull request, through Jenkins gates.</p>
-        <dl class="sidebar__facts">
-          <div><dt>Used by</dt><dd>about 150 developers</dd></div>
-          <div><dt>Saves</dt><dd>15+ minutes of review per pull request</dd></div>
-        </dl>
-      </aside>
-    </div>
-  </section>
-
-  <!-- ============================================================ experience -->
-  <section id="experience" class="chapter" data-chapter="Experience" data-sc-act="flow" aria-labelledby="experience-h">
-    <div class="wrap">
-      <h2 id="experience-h" class="h2">Experience</h2>
-      <ol class="timeline">
-        <li class="role">
-          <p class="role__when"><time datetime="2025-09">Sep 2025</time> to now</p>
-          <div class="role__body" data-sc-in>
-            <h3 class="role__title">DevOps Engineer, Platform Automation</h3>
-            <p class="role__org">Incedo Inc., Chennai</p>
-            <ul>
-              <li>Automate EKS operations (RBAC, rollouts, node scaling) across four environments.</li>
-              <li>Built self-service SSO access through GitHub Actions, replacing ticket-based grants.</li>
-              <li>Automated Kustomize-based deployments on EKS, including environment-specific blue-green overlays.</li>
-              <li>Build AI-assisted automation with MCP servers and custom Copilot and Claude agents.</li>
-            </ul>
-          </div>
-        </li>
-        <li class="role">
-          <p class="role__when"><time datetime="2021-08">Aug 2021</time> to <time datetime="2025-09">Sep 2025</time></p>
-          <div class="role__body" data-sc-in>
-            <h3 class="role__title">DevOps Engineer, CI/CD &amp; Cloud Infrastructure</h3>
-            <p class="role__org">Incedo Inc., Chennai</p>
-            <ul>
-              <li>Migrated 15 microservices to Amazon EKS and introduced Flux.</li>
-              <li>Moved 23 repositories from Jenkins to GitHub Actions; pipeline runtime fell 68%.</li>
-              <li>Cut cloud spend by about 40%, and deploys from about 45 minutes to under 10.</li>
-              <li>Built observability on New Relic, Elastic and CloudWatch: incidents down 30%, mean time to recovery down 45%.</li>
-            </ul>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ======================================================== skills + certs -->
-  <section id="skills" class="chapter" data-chapter="Skills" data-sc-act="flow" aria-labelledby="skills-h">
-    <div class="wrap index-grid">
-      <div>
-        <h2 id="skills-h" class="h2">Skills</h2>
-        <dl class="index" data-sc-in>
-          <div><dt>Cloud and IaC</dt><dd>AWS (EKS, EC2, S3, EFS, VPC, IAM, KMS, Secrets Manager, CloudWatch, Route 53), CloudFormation, Terraform (personal projects)</dd></div>
-          <div><dt>Containers</dt><dd>Kubernetes, Amazon EKS, Docker, Helm, Kustomize, Flux, GitOps, RBAC, HPA/VPA, Amazon ECR</dd></div>
-          <div><dt>CI/CD</dt><dd>Jenkins, GitHub Actions, Bitbucket, Gradle, Maven, blue-green and canary deployments, FinOps</dd></div>
-          <div><dt>Observability and reliability</dt><dd>New Relic, Elastic, CloudWatch, SRE practices, incident and on-call management</dd></div>
-          <div><dt>AI-assisted automation</dt><dd>MCP servers, GitHub Copilot agent mode, Claude, custom agents</dd></div>
-          <div><dt>Languages and tooling</dt><dd>Python, Bash, Linux, Git, YAML, DevSecOps</dd></div>
-        </dl>
-      </div>
-      <div class="certs">
-        <h2 class="h3">Certifications</h2>
-        <ul data-sc-in>
-          <li><strong>Certified Kubernetes Administrator</strong><span>valid to December 2027</span></li>
-          <!-- TODO: update the AWS Solutions Architect Associate dates after renewal (expires Nov 2026) -->
-          <li><strong>AWS Certified Solutions Architect, Associate</strong><span>November 2023 to November 2026</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================== close / colophon -->
-  <footer id="contact" class="chapter ground-ink colophon" data-chapter="Contact" aria-labelledby="contact-h">
-    <div class="wrap">
-      <h2 id="contact-h" class="h2">Contact</h2>
-      <p class="colophon__line">I'm looking for platform and DevOps roles in Bangalore. Write to me at <a href="mailto:siddharthtp10@gmail.com">siddharthtp10@gmail.com</a>, read my code at <a href="https://github.com/siddharthtp10">github.com/siddharthtp10</a>, or find me on <a href="https://www.linkedin.com/in/siddharthtps">LinkedIn</a>. You can also read my <a href="assets/Siddharth_S_Resume.pdf" type="application/pdf">Resume (PDF, 145 KB)</a>.</p>
-      <p class="colophon__small">Set in Newsreader and IBM Plex Sans. Static HTML, CSS and a little JavaScript; no trackers, no cookies.</p>
-    </div>
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer wrap">
+    <p class="footer__row">
+      <span>© 2026 Siddharth S</span>
+      <span>Chennai, India</span>
+      <span>Built with Claude Code; every claim reviewed by me. No trackers.</span>
+      <a class="link" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </p>
+    <p class="footer__small">Last updated October 2026</p>
   </footer>
 
-</main>
-
-<script src="scrollcraft.js"></script>
-<script src="js/site.js"></script>
+  <script defer src="assets/vendor/gsap.min.js"></script>
+  <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="assets/vendor/lenis.min.js"></script>
+  <script defer src="script.js"></script>
 </body>
 </html>
