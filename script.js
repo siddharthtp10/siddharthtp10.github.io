@@ -377,7 +377,12 @@
       start: 'top 88%',
       once: true,
       onEnter: function (els) {
-        gsap.to(els, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.12, overwrite: true });
+        // Landing mid-page (a #link or a reload) enters everything above at once: show those
+        // instantly so on-screen content isn't queued behind them in the stagger
+        var above = els.filter(function (el) { return el.getBoundingClientRect().bottom <= 0; });
+        var rest = els.filter(function (el) { return above.indexOf(el) === -1; });
+        if (above.length) gsap.set(above, { opacity: 1, y: 0, overwrite: true });
+        if (rest.length) gsap.to(rest, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.12, overwrite: true });
       }
     });
     $$('[data-rule]').forEach(function (r) {
@@ -444,6 +449,7 @@
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function () { splitLines(heroTitle); ST.refresh(); });
     }
+
   }
 
   function initDiagram(gsap, ST) {
