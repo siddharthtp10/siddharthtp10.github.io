@@ -429,7 +429,7 @@
           <div class="recs">
             <figure class="rec is-pending" data-rec>
               <div class="rec__frame">
-                <video muted playsinline loop preload="none" width="960" height="600" poster="assets/video/provision-poster.svg" aria-describedby="rec-provision-alt"></video>
+                <video muted playsinline loop preload="none" width="960" height="600" aria-hidden="true" poster="assets/video/provision-poster.svg" aria-describedby="rec-provision-alt"></video>
                 <p class="rec__pending" aria-hidden="true"><span class="rec__pending-k">Fig. 2 · Provision</span><span class="rec__pending-t">Recording coming</span></p>
                 <button class="rec__toggle" type="button" aria-pressed="false" aria-label="Pause recording" hidden>
                   <span class="rec__icon" aria-hidden="true"></span>
@@ -444,7 +444,7 @@
 
             <figure class="rec is-pending" data-rec>
               <div class="rec__frame">
-                <video muted playsinline loop preload="none" width="960" height="600" poster="assets/video/deliver-poster.svg" aria-describedby="rec-deliver-alt"></video>
+                <video muted playsinline loop preload="none" width="960" height="600" aria-hidden="true" poster="assets/video/deliver-poster.svg" aria-describedby="rec-deliver-alt"></video>
                 <p class="rec__pending" aria-hidden="true"><span class="rec__pending-k">Fig. 3 · Deliver</span><span class="rec__pending-t">Recording coming</span></p>
                 <button class="rec__toggle" type="button" aria-pressed="false" aria-label="Pause recording" hidden>
                   <span class="rec__icon" aria-hidden="true"></span>
@@ -474,7 +474,7 @@
             <a class="link" href="https://github.com/siddharthtp10/terraform-eks-platform" target="_blank" rel="noopener">View repository <span aria-hidden="true">↗</span></a>
             <a class="link" href="https://github.com/siddharthtp10/terraform-eks-platform/blob/main/docs/interview-notes.md" target="_blank" rel="noopener">Read the design notes <span aria-hidden="true">↗</span></a>
           </p>
-          <p class="chapter__credit" data-reveal>Built with Claude as a coding assistant; I ran and reviewed every stage.</p>
+          <p class="chapter__credit" data-reveal>Built with Claude as a coding assistant; I ran and reviewed every stage myself.</p>
         </div>
       </article>
 
@@ -493,7 +493,7 @@
           </div>
           <figure class="rec rec--wide is-pending" data-rec>
             <div class="rec__frame">
-              <video muted playsinline loop preload="none" width="960" height="600" poster="assets/video/review-poster.svg" aria-describedby="rec-review-alt"></video>
+              <video muted playsinline loop preload="none" width="960" height="600" aria-hidden="true" poster="assets/video/review-poster.svg" aria-describedby="rec-review-alt"></video>
               <p class="rec__pending" aria-hidden="true"><span class="rec__pending-k">Fig. 4 · Review</span><span class="rec__pending-t">Recording coming</span></p>
               <button class="rec__toggle" type="button" aria-pressed="false" aria-label="Pause recording" hidden>
                 <span class="rec__icon" aria-hidden="true"></span>
@@ -512,7 +512,7 @@
             <a class="link" href="https://github.com/siddharthtp10/pr-guardian-action" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
             <a class="link" href="https://github.com/siddharthtp10/pr-guardian-action/pulls" target="_blank" rel="noopener">Pull requests <span aria-hidden="true">↗</span></a>
           </p>
-          <p class="chapter__credit" data-reveal>Built with Claude as a coding assistant; I ran and reviewed every stage.</p>
+          <p class="chapter__credit" data-reveal>Built with Claude as a coding assistant; I ran and reviewed every stage myself.</p>
         </div>
       </article>
 
@@ -530,20 +530,6 @@
             <div><dt>Developers using it</dt><dd>~150</dd></div>
             <div><dt>Saved per pull request</dt><dd>15+ min</dd></div>
           </dl>
-          <div class="bot__case" data-reveal>
-            <div>
-              <h4>Problem</h4>
-              <p>Reviewers spent their first pass on mechanical checks, so feedback on design and risk came late.</p>
-            </div>
-            <div>
-              <h4>Approach</h4>
-              <p>A bot validates each pull request against the team’s standards automatically and leaves inline review feedback, so reviewers start from a clean baseline.</p>
-            </div>
-            <div>
-              <h4>Result</h4>
-              <p>A hackathon runner-up, then adopted across the team: about 150 developers, saving 15+ minutes per pull request.</p>
-            </div>
-          </div>
           <figure class="bot__fig" data-reveal>
             <svg class="bot__svg" viewBox="0 0 720 120" role="img" aria-labelledby="bot-title bot-desc">
               <title id="bot-title">Fig. 5 — Schematic of the validation bot</title>
@@ -610,19 +596,18 @@
         </article>
         <article class="cert" data-reveal>
           <p class="cert__issuer">Amazon Web Services</p>
+          <!-- TODO: update after renewal (expires Nov 2026) -->
           <h3 class="cert__name">AWS Certified Solutions Architect – Associate</h3>
           <p class="cert__meta">SAA</p>
         </article>
       </div>
       <dl class="toolkit" data-reveal>
-        <div><dt>Cloud</dt><dd>AWS: EKS, EC2, VPC, IAM, S3, EFS, Amazon ECR, CloudWatch, Secrets Manager, KMS</dd></div>
-        <div><dt>Infrastructure as code</dt><dd>CloudFormation (production), Terraform (personal projects)</dd></div>
-        <div><dt>Containers</dt><dd>Kubernetes, Docker, Helm, Kustomize, Flux, RBAC, HPA/VPA</dd></div>
-        <div><dt>CI/CD</dt><dd>GitHub Actions, Jenkins, Bitbucket, Git, Gradle, Maven</dd></div>
-        <div><dt>Observability</dt><dd>CloudWatch, New Relic, Elastic</dd></div>
-        <div><dt>Languages</dt><dd>Python, Bash, YAML</dd></div>
-        <div><dt>Systems</dt><dd>Linux</dd></div>
-        <div><dt>Practices</dt><dd>SRE practices, FinOps, DevSecOps</dd></div>
+        <div><dt>Cloud and IaC</dt><dd>AWS (EKS, EC2, S3, EFS, VPC, IAM, KMS, Secrets Manager, CloudWatch, Route 53), CloudFormation, Terraform (personal projects)</dd></div>
+        <div><dt>Containers</dt><dd>Kubernetes, Amazon EKS, Docker, Helm, Kustomize, Flux, GitOps, RBAC, HPA/VPA, Amazon ECR</dd></div>
+        <div><dt>CI/CD</dt><dd>Jenkins, GitHub Actions, Bitbucket, Gradle, Maven, blue-green and canary deployments, FinOps</dd></div>
+        <div><dt>Observability</dt><dd>New Relic, Elastic, CloudWatch, SRE practices, incident and on-call management</dd></div>
+        <div><dt>AI-assisted automation</dt><dd>MCP servers, GitHub Copilot agent mode, Claude, custom agents</dd></div>
+        <div><dt>Languages and tooling</dt><dd>Python, Bash, Linux, Git, YAML, DevSecOps</dd></div>
       </dl>
     </section>
 
@@ -651,7 +636,7 @@
     <p class="footer__row">
       <span>© 2026 Siddharth S</span>
       <span>Chennai, India</span>
-      <span>Built with Claude Code; every claim reviewed by me. No trackers.</span>
+      <span>Built with Claude Code; every claim reviewed by me. No trackers, no cookies.</span>
       <a class="link" href="#top">Back to top <span aria-hidden="true">↑</span></a>
     </p>
     <p class="footer__small">Last updated October 2026</p>

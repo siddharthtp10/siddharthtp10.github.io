@@ -204,6 +204,7 @@
       if (!sources.length) return; // still pending: poster + "Recording coming"
 
       fig.classList.remove('is-pending');
+      video.removeAttribute('aria-hidden');
       toggle.hidden = false;
       var loaded = false;
       var userPaused = prefersReduced || saveData;
