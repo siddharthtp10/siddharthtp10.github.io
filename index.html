@@ -108,6 +108,21 @@
       <p class="eyebrow eyebrow--accent" data-hero-fade>DevOps &amp; Platform Engineer</p>
       <h1 class="hero__title" id="hero-title" data-split>I build the platform your <em>releases</em> run&nbsp;on.</h1>
       <div class="hero__rule" data-hero-rule></div>
+      <figure class="loop" data-loop data-hero-fade role="img" aria-label="Illustration of the delivery loop I build for: commit, build and test, scan, deploy, then observe and recover.">
+        <div class="loop__track" aria-hidden="true">
+          <span class="loop__line"></span>
+          <span class="loop__progress"></span>
+          <span class="loop__token"></span>
+          <ol class="loop__nodes">
+            <li style="--at:0">Commit</li>
+            <li style="--at:.25">Build &amp; test</li>
+            <li style="--at:.5">Scan</li>
+            <li style="--at:.75">Deploy</li>
+            <li style="--at:1">Observe &amp; recover</li>
+          </ol>
+        </div>
+        <figcaption class="loop__cap">Illustration · the delivery loop I build for</figcaption>
+      </figure>
       <div class="hero__meta">
         <p class="hero__sub" data-hero-fade>DevOps and platform engineer. I build and run AWS and Kubernetes platforms, and automate the work around them, so teams release more often and recover faster.</p>
         <p class="hero__proof" data-hero-fade>
@@ -128,38 +143,68 @@
     <!-- ============ THE RECORD ============ -->
     <section class="record wrap" id="record" data-running="The record" aria-labelledby="record-title">
       <h2 class="label" id="record-title" data-reveal><span>The record</span></h2>
-      <dl class="stats">
-        <div class="stat" data-reveal>
-          <dt class="stat__label">microservices moved to Amazon EKS</dt>
-          <dd class="stat__num" aria-label="15"><span data-count="15">15</span></dd>
-          <dd class="stat__ctx">120+ pods</dd>
+      <div class="record__grid">
+        <div class="ba">
+          <p class="ba__legend" data-reveal aria-hidden="true"><span class="ba__key ba__key--before"></span>Before<span class="ba__key ba__key--after"></span>After <span class="ba__note">bars show each change to scale</span></p>
+          <div class="ba__row" data-reveal data-ba>
+            <p class="ba__num" aria-label="From 45 minutes to under 10 minutes">45<span class="ba__arrow">→</span>&lt;10<small>min</small></p>
+            <p class="ba__label">deploy time</p>
+            <div class="ba__chart" aria-hidden="true">
+              <div class="ba__line"><span class="ba__tag">Before</span><span class="ba__track"><span class="ba__bar ba__bar--before" style="--w:1"></span></span><span class="ba__val">45 min</span></div>
+              <div class="ba__line"><span class="ba__tag">After</span><span class="ba__track"><span class="ba__bar ba__bar--after" style="--w:.22"></span></span><span class="ba__val ba__val--after">under 10</span></div>
+            </div>
+            <p class="ba__ctx">Standardised Docker builds and pipelines</p>
+          </div>
+          <div class="ba__row" data-reveal data-ba>
+            <p class="ba__num" aria-label="68 percent"><span data-count="68">68</span>%</p>
+            <p class="ba__label">shorter pipelines</p>
+            <div class="ba__chart" aria-hidden="true">
+              <div class="ba__line"><span class="ba__tag">Before</span><span class="ba__track"><span class="ba__bar ba__bar--before" style="--w:1"></span></span></div>
+              <div class="ba__line"><span class="ba__tag">After</span><span class="ba__track"><span class="ba__bar ba__bar--after" style="--w:.32"></span></span></div>
+            </div>
+            <p class="ba__ctx">Repositories moved from Jenkins to GitHub Actions</p>
+          </div>
+          <div class="ba__row" data-reveal data-ba>
+            <p class="ba__num" aria-label="About 40 percent">~<span data-count="40">40</span>%</p>
+            <p class="ba__label">lower cloud spend</p>
+            <div class="ba__chart" aria-hidden="true">
+              <div class="ba__line"><span class="ba__tag">Before</span><span class="ba__track"><span class="ba__bar ba__bar--before" style="--w:1"></span></span></div>
+              <div class="ba__line"><span class="ba__tag">After</span><span class="ba__track"><span class="ba__bar ba__bar--after" style="--w:.6"></span></span></div>
+            </div>
+            <p class="ba__ctx">Savings Plans, rightsizing, autoscaling, S3 Intelligent-Tiering</p>
+          </div>
+          <div class="ba__row" data-reveal data-ba>
+            <p class="ba__num" aria-label="45 percent"><span data-count="45">45</span>%</p>
+            <p class="ba__label">lower mean time to recovery</p>
+            <div class="ba__chart" aria-hidden="true">
+              <div class="ba__line"><span class="ba__tag">Before</span><span class="ba__track"><span class="ba__bar ba__bar--before" style="--w:1"></span></span></div>
+              <div class="ba__line"><span class="ba__tag">After</span><span class="ba__track"><span class="ba__bar ba__bar--after" style="--w:.55"></span></span></div>
+            </div>
+            <p class="ba__ctx">Dashboards, alerting and on-call runbooks</p>
+          </div>
+          <div class="ba__row" data-reveal data-ba>
+            <p class="ba__num" aria-label="30 percent"><span data-count="30">30</span>%</p>
+            <p class="ba__label">fewer incidents</p>
+            <div class="ba__chart" aria-hidden="true">
+              <div class="ba__line"><span class="ba__tag">Before</span><span class="ba__track"><span class="ba__bar ba__bar--before" style="--w:1"></span></span></div>
+              <div class="ba__line"><span class="ba__tag">After</span><span class="ba__track"><span class="ba__bar ba__bar--after" style="--w:.7"></span></span></div>
+            </div>
+            <p class="ba__ctx">User-facing, from the same dashboards, alert policies and runbooks</p>
+          </div>
         </div>
-        <div class="stat" data-reveal>
-          <dt class="stat__label">lower cloud spend</dt>
-          <dd class="stat__num" aria-label="About 40 percent">~<span data-count="40">40</span>%</dd>
-          <dd class="stat__ctx">Savings Plans, rightsizing, autoscaling, S3 Intelligent-Tiering</dd>
-        </div>
-        <div class="stat" data-reveal>
-          <dt class="stat__label">deploy time</dt>
-          <dd class="stat__num" aria-label="From 45 minutes to under 10 minutes">45<span class="stat__arrow">→</span>&lt;10<small>min</small></dd>
-          <dd class="stat__ctx">Standardised Docker builds and pipelines</dd>
-        </div>
-        <div class="stat" data-reveal>
-          <dt class="stat__label">shorter pipelines</dt>
-          <dd class="stat__num" aria-label="68 percent"><span data-count="68">68</span>%</dd>
-          <dd class="stat__ctx">Repositories moved from Jenkins to GitHub Actions</dd>
-        </div>
-        <div class="stat" data-reveal>
-          <dt class="stat__label">releases a week</dt>
-          <dd class="stat__num" aria-label="15 to 20"><span data-count="15">15</span>–<span data-count="20">20</span></dd>
-          <dd class="stat__ctx">Production release cadence</dd>
-        </div>
-        <div class="stat" data-reveal>
-          <dt class="stat__label">lower mean time to recovery</dt>
-          <dd class="stat__num" aria-label="45 percent"><span data-count="45">45</span>%</dd>
-          <dd class="stat__ctx">With 30% fewer incidents, from dashboards, alerting and on-call runbooks</dd>
-        </div>
-      </dl>
+        <dl class="record__side">
+          <div class="stat" data-reveal>
+            <dt class="stat__label">microservices moved to Amazon EKS</dt>
+            <dd class="stat__num" aria-label="15"><span data-count="15">15</span></dd>
+            <dd class="stat__ctx">120+ pods</dd>
+          </div>
+          <div class="stat" data-reveal>
+            <dt class="stat__label">releases a week</dt>
+            <dd class="stat__num" aria-label="15 to 20"><span data-count="15">15</span>–<span data-count="20">20</span></dd>
+            <dd class="stat__ctx">Production release cadence</dd>
+          </div>
+        </dl>
+      </div>
       <p class="footnote" data-reveal>Figures from production work at Incedo, 2021 to 2025.</p>
     </section>
 
@@ -507,8 +552,8 @@
               <p>A draft demo pull request, opened from the repository’s intentionally insecure examples. The Files changed tab should show PR Guardian’s inline comments on risky lines, each with a rule ID and severity, plus one comment labelled as AI-generated advisory, and a red check because rule findings meet the fail threshold.</p>
             </details>
           </figure>
-          <p class="flow" data-reveal aria-label="How it works: diff, then rules engine, then inline comments, with an optional advisory AI note">
-            <span>diff</span><i aria-hidden="true">→</i><span>rules engine</span><i aria-hidden="true">→</i><span>inline comments</span><i aria-hidden="true">+</i><span class="flow__muted">advisory AI note</span>
+          <p class="flow" data-reveal data-flow aria-label="How it is designed to work: diff, then rules engine, then inline comments, with an optional advisory AI note">
+            <span class="flow__step">diff</span><i aria-hidden="true">→</i><span class="flow__step">rules engine</span><i aria-hidden="true">→</i><span class="flow__step">inline comments</span><i aria-hidden="true">+</i><span class="flow__step flow__muted">advisory AI note</span>
           </p>
           <p class="chapter__links" data-reveal>
             <a class="link" href="https://github.com/siddharthtp10/pr-guardian-action" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">↗</span></a>
@@ -532,15 +577,17 @@
             <div><dt>Developers using it</dt><dd>~150</dd></div>
             <div><dt>Saved per pull request</dt><dd>15+ min</dd></div>
           </dl>
-          <figure class="bot__fig" data-reveal>
-            <svg class="bot__svg" viewBox="0 0 720 120" role="img" aria-labelledby="bot-title bot-desc">
+          <figure class="bot__fig" data-reveal data-botflow>
+            <svg class="bot__svg" viewBox="0 0 720 118" role="img" aria-labelledby="bot-title bot-desc">
               <title id="bot-title">Fig. 5 — Schematic of the validation bot</title>
               <desc id="bot-desc">A pull request goes to the validation bot, which runs the team’s standards checks and leaves inline review feedback on the pull request.</desc>
-              <rect x="10" y="34" width="130" height="52"/><text x="75" y="65" text-anchor="middle">Pull request</text>
-              <rect x="180" y="34" width="130" height="52"/><text x="245" y="65" text-anchor="middle">Validation bot</text>
-              <rect x="350" y="34" width="130" height="52"/><text x="415" y="65" text-anchor="middle">Standards checks</text>
-              <rect x="520" y="34" width="190" height="52" class="is-live"/><text x="615" y="65" text-anchor="middle">Inline review feedback</text>
               <path d="M140 60 H180 M310 60 H350 M480 60 H520"/>
+              <rect class="bot__step" x="10" y="34" width="130" height="52"/><text x="75" y="65" text-anchor="middle">Pull request</text>
+              <rect class="bot__step" x="180" y="34" width="130" height="52"/><text x="245" y="65" text-anchor="middle">Validation bot</text>
+              <rect class="bot__step" x="350" y="34" width="130" height="52"/><text x="415" y="65" text-anchor="middle">Standards checks</text>
+              <rect class="bot__step is-live" x="520" y="34" width="190" height="52"/><text x="615" y="65" text-anchor="middle">Inline review feedback</text>
+              <path class="bot__rail" d="M75 104 H615"/>
+              <circle class="bot__token" cx="75" cy="104" r="5"/>
             </svg>
             <div class="ms bot__mflow" role="img" aria-label="Fig. 5 — A pull request goes to the validation bot, which runs the team’s standards checks and leaves inline review feedback on the pull request.">
               <div class="ms__box"><b>Pull request</b></div><span class="ms__arrow">↓</span>
@@ -599,14 +646,41 @@
           <p class="cert__meta">SAA</p>
         </article>
       </div>
-      <dl class="toolkit" data-reveal>
-        <div><dt>Cloud and IaC</dt><dd>AWS (EKS, EC2, S3, EFS, VPC, IAM, KMS, Secrets Manager, CloudWatch, Route 53), CloudFormation, Terraform (personal projects)</dd></div>
-        <div><dt>Containers</dt><dd>Kubernetes, Amazon EKS, Docker, Helm, Kustomize, Flux, GitOps, RBAC, HPA/VPA, Amazon ECR</dd></div>
-        <div><dt>CI/CD</dt><dd>Jenkins, GitHub Actions, Bitbucket, Gradle, Maven, blue-green and canary deployments, FinOps</dd></div>
-        <div><dt>Observability and reliability</dt><dd>New Relic, Elastic, CloudWatch, SRE practices, incident and on-call management</dd></div>
-        <div><dt>AI-assisted automation</dt><dd>MCP servers, GitHub Copilot agent mode, Claude, custom agents</dd></div>
-        <div><dt>Languages and tooling</dt><dd>Python, Bash, Linux, Git, YAML, DevSecOps</dd></div>
-      </dl>
+      <div class="skillmap" data-skillmap data-reveal>
+        <div class="skillmap__groups">
+          <div class="skillmap__group">
+            <p class="skillmap__k">Cloud and IaC</p>
+            <ul class="skillmap__chips"><li class="skill__lead">AWS</li><li><button type="button" class="skill" data-ctx="a b c" aria-pressed="false">EKS</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">EC2</button></li><li><button type="button" class="skill" data-ctx="a b c" aria-pressed="false">S3</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">EFS</button></li><li><button type="button" class="skill" data-ctx="a c" aria-pressed="false">VPC</button></li><li><button type="button" class="skill" data-ctx="a c" aria-pressed="false">IAM</button></li><li><button type="button" class="skill" data-ctx="b c" aria-pressed="false">KMS</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">Secrets Manager</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">CloudWatch</button></li><li><button type="button" class="skill" data-ctx="" aria-pressed="false">Route 53</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">CloudFormation</button></li><li><button type="button" class="skill" data-ctx="c" aria-pressed="false">Terraform (personal projects)</button></li></ul>
+          </div>
+          <div class="skillmap__group">
+            <p class="skillmap__k">Containers</p>
+            <ul class="skillmap__chips"><li><button type="button" class="skill" data-ctx="a b c" aria-pressed="false">Kubernetes</button></li><li><button type="button" class="skill" data-ctx="a b c" aria-pressed="false">Amazon EKS</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">Docker</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">Helm</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">Kustomize</button></li><li><button type="button" class="skill" data-ctx="a c" aria-pressed="false">Flux</button></li><li><button type="button" class="skill" data-ctx="a c" aria-pressed="false">GitOps</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">RBAC</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">HPA/VPA</button></li><li><button type="button" class="skill" data-ctx="a b" aria-pressed="false">Amazon ECR</button></li></ul>
+          </div>
+          <div class="skillmap__group">
+            <p class="skillmap__k">CI/CD</p>
+            <ul class="skillmap__chips"><li><button type="button" class="skill" data-ctx="a b e" aria-pressed="false">Jenkins</button></li><li><button type="button" class="skill" data-ctx="a b c d" aria-pressed="false">GitHub Actions</button></li><li><button type="button" class="skill" data-ctx="e" aria-pressed="false">Bitbucket</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">Gradle</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">Maven</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">blue-green and canary deployments</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">FinOps</button></li></ul>
+          </div>
+          <div class="skillmap__group">
+            <p class="skillmap__k">Observability and reliability</p>
+            <ul class="skillmap__chips"><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">New Relic</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">Elastic</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">CloudWatch</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">SRE practices</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">incident and on-call management</button></li></ul>
+          </div>
+          <div class="skillmap__group">
+            <p class="skillmap__k">AI-assisted automation</p>
+            <ul class="skillmap__chips"><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">MCP servers</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">GitHub Copilot agent mode</button></li><li><button type="button" class="skill" data-ctx="b c d" aria-pressed="false">Claude</button></li><li><button type="button" class="skill" data-ctx="b" aria-pressed="false">custom agents</button></li></ul>
+          </div>
+          <div class="skillmap__group">
+            <p class="skillmap__k">Languages and tooling</p>
+            <ul class="skillmap__chips"><li><button type="button" class="skill" data-ctx="d" aria-pressed="false">Python</button></li><li><button type="button" class="skill" data-ctx="d" aria-pressed="false">Bash</button></li><li><button type="button" class="skill" data-ctx="a" aria-pressed="false">Linux</button></li><li><button type="button" class="skill" data-ctx="c d" aria-pressed="false">Git</button></li><li><button type="button" class="skill" data-ctx="b d e" aria-pressed="false">YAML</button></li><li><button type="button" class="skill" data-ctx="a c d" aria-pressed="false">DevSecOps</button></li></ul>
+          </div>
+        </div>
+        <aside class="skillmap__panel" aria-labelledby="skillmap-title">
+          <p class="skillmap__title" id="skillmap-title">Where I used it</p>
+          <p class="skillmap__hint" data-skillmap-hint>Pick a skill, or a role or project, to see how they connect.</p>
+          <ul class="skillmap__ctx"><li><button type="button" class="ctx" data-ctx-id="a"><b>Incedo · CI/CD &amp; Cloud Infrastructure</b><small>Work · 2021 – 2025</small></button></li><li><button type="button" class="ctx" data-ctx-id="b"><b>Incedo · Platform Automation</b><small>Work · Sep 2025 – present</small></button></li><li><button type="button" class="ctx" data-ctx-id="c"><b>Terraform EKS Platform</b><small>Personal project · in progress</small></button></li><li><button type="button" class="ctx" data-ctx-id="d"><b>PR Guardian Action</b><small>Personal project · release candidate</small></button></li><li><button type="button" class="ctx" data-ctx-id="e"><b>AI pull-request validation bot</b><small>Work project · code private</small></button></li></ul>
+          <p class="sr-only" aria-live="polite" data-skillmap-status></p>
+          <p class="skillmap__src">Mapped from my resume and the project READMEs.</p>
+        </aside>
+      </div>
     </section>
 
     <!-- ============ CONTACT ============ -->

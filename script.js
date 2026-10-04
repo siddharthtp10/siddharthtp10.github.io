@@ -261,6 +261,133 @@
     });
   }
 
+  /* ---------- Skills map: link each skill to where it was used ---------- */
+  function initSkillmap() {
+    var map = $('[data-skillmap]');
+    if (!map) return;
+    var skills = $$('.skill', map);
+    var ctxs = $$('.ctx', map);
+    var hint = $('[data-skillmap-hint]', map);
+    var status = $('[data-skillmap-status]', map);
+    var defaultHint = hint.textContent;
+    var pinned = null;
+    var names = {};
+    ctxs.forEach(function (c) { names[c.getAttribute('data-ctx-id')] = c.querySelector('b').textContent; });
+
+    function idsOf(skill) { return (skill.getAttribute('data-ctx') || '').split(' ').filter(Boolean); }
+    function clear() {
+      skills.forEach(function (k) { k.classList.remove('is-hot', 'is-dim'); });
+      ctxs.forEach(function (c) { c.classList.remove('is-on', 'is-off'); });
+    }
+    function show(el) {
+      clear();
+      if (!el) { hint.textContent = defaultHint; return; }
+      var msg;
+      if (el.classList.contains('skill')) {
+        var ids = idsOf(el);
+        el.classList.add('is-hot');
+        ctxs.forEach(function (c) { c.classList.add(ids.indexOf(c.getAttribute('data-ctx-id')) > -1 ? 'is-on' : 'is-off'); });
+        msg = ids.length
+          ? el.textContent + ': ' + ids.map(function (i) { return names[i]; }).join(', ') + '.'
+          : el.textContent + ': on my resume, not tied to a project on this page.';
+      } else {
+        var id = el.getAttribute('data-ctx-id');
+        var used = skills.filter(function (k) { return idsOf(k).indexOf(id) > -1; });
+        el.classList.add('is-on');
+        ctxs.forEach(function (c) { if (c !== el) c.classList.add('is-off'); });
+        skills.forEach(function (k) { k.classList.add(used.indexOf(k) > -1 ? 'is-hot' : 'is-dim'); });
+        msg = names[id] + ': ' + used.length + ' skills highlighted.';
+      }
+      hint.textContent = msg;
+    }
+    function restore() { show(pinned); }
+    function bind(el) {
+      el.addEventListener('mouseenter', function () { show(el); });
+      el.addEventListener('focus', function () { show(el); });
+      el.addEventListener('mouseleave', restore);
+      el.addEventListener('blur', restore);
+      el.addEventListener('click', function () {
+        var same = pinned === el;
+        skills.concat(ctxs).forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        pinned = same ? null : el;
+        if (pinned) pinned.setAttribute('aria-pressed', 'true');
+        show(pinned);
+        status.textContent = pinned ? hint.textContent : 'Selection cleared.';
+      });
+    }
+    skills.forEach(bind);
+    ctxs.forEach(function (c) { c.setAttribute('aria-pressed', 'false'); bind(c); });
+  }
+
+  /* ---------- Hero: delivery-loop illustration (slow loop, paused off-screen) ---------- */
+  function initLoop(gsap) {
+    var loop = $('[data-loop]');
+    if (!loop) return;
+    var token = $('.loop__token', loop);
+    var bar = $('.loop__progress', loop);
+    var nodes = $$('.loop__nodes li', loop);
+    var stops = nodes.map(function (n) { return parseFloat(getComputedStyle(n).getPropertyValue('--at')); });
+    var state = { v: 0 };
+    loop.classList.add('is-live');
+    function render() {
+      token.style.left = (state.v * 100) + '%';
+      bar.style.transform = 'scaleX(' + state.v + ')';
+      nodes.forEach(function (n, i) { n.classList.toggle('is-hit', state.v >= stops[i] - 0.002); });
+    }
+    var tl = gsap.timeline({ repeat: -1, repeatDelay: 1, delay: 1.8, paused: true });
+    tl.set(state, { v: 0, onComplete: render })
+      .to(token, { opacity: 1, duration: 0.4 })
+      .to(state, { v: 1, duration: 7, ease: 'power1.inOut', onUpdate: render })
+      .to(token, { opacity: 0, duration: 0.5 }, '+=0.6')
+      .to(bar, { opacity: 0, duration: 0.6 }, '<')
+      .set(bar, { opacity: 1 });
+    render();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { e[0].isIntersecting ? tl.play() : tl.pause(); }).observe(loop);
+    } else { tl.play(); }
+  }
+
+  /* ---------- The record: before/after bars grow on enter ---------- */
+  function initBars(gsap) {
+    $$('[data-ba]').forEach(function (row) {
+      var before = $('.ba__bar--before', row);
+      var after = $('.ba__bar--after', row);
+      gsap.timeline({ scrollTrigger: { trigger: row, start: 'top 85%', once: true } })
+        .from(before, { scaleX: 0, duration: 0.7, ease: 'power2.out' })
+        .from(after, { scaleX: 0, duration: 1.1, ease: 'power3.out' }, '-=0.2');
+    });
+  }
+
+  /* ---------- Project flows: steps light up in order as you scroll ---------- */
+  function initFlows(gsap, ST) {
+    var flow = $('[data-flow]');
+    if (flow) {
+      var steps = $$('.flow__step', flow), arrows = $$('i', flow);
+      ST.create({ trigger: flow, start: 'top 88%', end: 'top 45%', scrub: true, onUpdate: function (self) {
+        var n = Math.round(self.progress * steps.length);
+        steps.forEach(function (st, i) { st.classList.toggle('is-on', i < n); });
+        arrows.forEach(function (a, i) { a.classList.toggle('is-on', i < n - 1); });
+      } });
+    }
+    var fig = $('[data-botflow]');
+    if (!fig) return;
+    var token = $('.bot__token', fig);
+    var rects = $$('.bot__step', fig);
+    var xs = [75, 245, 415, 615];
+    var mboxes = $$('.bot__mflow .ms__box', fig);
+    var state = { p: 0 };
+    function render() {
+      var x = xs[0] + (xs[3] - xs[0]) * state.p;
+      token.setAttribute('cx', x);
+      rects.forEach(function (r, i) { r.classList.toggle('is-on', x >= xs[i] - 1); });
+      var n = Math.round(state.p * mboxes.length);
+      mboxes.forEach(function (b, i) { b.classList.toggle('is-on', i < Math.max(1, n)); });
+    }
+    gsap.set(token, { opacity: 1 });
+    gsap.to(state, { p: 1, ease: 'none', onUpdate: render, scrollTrigger: { trigger: fig, start: 'top 85%', end: 'top 35%', scrub: 0.6 } });
+    render();
+  }
+
   /* ---------- Split heading into masked lines ---------- */
   function splitLines(el) {
     if (!el.__original) el.__original = el.innerHTML;
@@ -388,6 +515,11 @@
     $$('[data-rule]').forEach(function (r) {
       gsap.to(r, { scaleX: 1, duration: 1, ease: 'power2.inOut', scrollTrigger: { trigger: r, start: 'top 90%', once: true } });
     });
+
+    // Visual upgrades
+    initLoop(gsap);
+    initBars(gsap);
+    initFlows(gsap, ST);
 
     // Stats count-up
     $$('[data-count]').forEach(function (el) {
@@ -520,6 +652,7 @@
     initMenu();
     initCopy();
     initRecordings();
+    initSkillmap();
 
     var canAnimate = !prefersReduced && window.gsap && window.ScrollTrigger;
     if (canAnimate) {
