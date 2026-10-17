@@ -134,7 +134,8 @@
         target.setAttribute('tabindex', '-1');
         target.focus({ preventScroll: true });
       }
-      history.replaceState(null, '', id);
+      // Keep the address clean (no #section), so a refresh after using the menu still plays the intro
+      history.replaceState(null, '', location.pathname + location.search);
     });
   }
 
