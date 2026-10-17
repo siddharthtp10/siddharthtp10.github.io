@@ -90,6 +90,20 @@
     // Active nav link for the section in view
     var links = $$('[data-nav]');
     var map = {};
+    // One indicator slides to the active link (only shows once a section is active)
+    var nav = $('.nav'), ind = null;
+    if (nav && links.length) {
+      ind = document.createElement('span'); ind.className = 'nav__ind'; ind.setAttribute('aria-hidden', 'true');
+      nav.appendChild(ind); nav.classList.add('has-ind');
+    }
+    function moveInd() {
+      if (!ind) return;
+      var on = links.filter(function (l) { return l.classList.contains('is-active'); })[0];
+      if (!on) { ind.style.opacity = '0'; return; }
+      ind.style.opacity = '1';
+      ind.style.transform = 'translateX(' + on.offsetLeft + 'px) scaleX(' + (on.offsetWidth / 100) + ')';
+    }
+    window.addEventListener('resize', moveInd);
     links.forEach(function (a) { map[a.getAttribute('data-nav')] = a; });
     if (!('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function (entries) {
@@ -103,6 +117,7 @@
           a.classList.remove('is-active');
         }
       });
+      moveInd();
     }, { rootMargin: '-45% 0px -50% 0px' });
     Object.keys(map).forEach(function (id) {
       var sec = document.getElementById(id);
@@ -412,8 +427,10 @@
     }
     var dz = 0; // scroll dolly: the camera moves forward over the floor as the hero scrolls away
     function depth(z) { return Math.max(z - dz, 0.8); }
-    function px(x, z) { return cx + f * (x + sway) / depth(z); }
-    function py(z) { return hy + f * HC / depth(z); }
+    // Cursor response (fine pointers only): the camera leans toward the cursor, nearby pods glow
+    var ptx = -1e4, pty = -1e4, pOn = 0, pTarget = 0, tiltX = 0, tiltY = 0, tiltTX = 0, tiltTY = 0;
+    function px(x, z) { return cx + f * (x + sway + tiltX) / depth(z); }
+    function py(z) { return hy + tiltY + f * HC / depth(z); }
 
     // Releases: zone by zone, far rows first, so the wave rolls toward the viewer
     var period = 5.2, nextRelease = 0.6, count = 0, packets = [];
@@ -494,14 +511,16 @@
             ctx.beginPath(); ctx.arc(x, y, r * 1.6, 0, Math.PI * 2); ctx.stroke();
             continue;
           }
-          if (n.e > 0.02) {
-            var gs = r * (6 + 6 * n.e); ctx.globalAlpha = n.e;
+          var near = pOn > 0.01 ? Math.max(0, 1 - Math.hypot(x - ptx, y - pty) / 190) * pOn : 0;
+          var ne = Math.max(n.e, near);
+          if (ne > 0.02) {
+            var gs = r * (6 + 6 * ne); ctx.globalAlpha = ne;
             ctx.drawImage(glow, x - gs, y - gs, gs * 2, gs * 2); ctx.globalAlpha = 1;
-            ctx.strokeStyle = 'rgba(' + GREEN + ',' + n.e * 0.45 + ')'; ctx.lineWidth = 1;
-            ctx.beginPath(); ctx.arc(x, y, r * (1.5 + (1 - n.e) * 3), 0, Math.PI * 2); ctx.stroke();
+            ctx.strokeStyle = 'rgba(' + GREEN + ',' + ne * 0.45 + ')'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.arc(x, y, r * (1.5 + (1 - ne) * 3), 0, Math.PI * 2); ctx.stroke();
           }
           var base = 0.22 + 0.5 * s;
-          ctx.fillStyle = n.e > 0.02 ? 'rgba(' + GREEN + ',' + Math.min(1, base + n.e) + ')' : 'rgba(' + MUTED + ',' + base + ')';
+          ctx.fillStyle = ne > 0.02 ? 'rgba(' + GREEN + ',' + Math.min(1, base + ne) + ')' : 'rgba(' + MUTED + ',' + base + ')';
           ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
         }
       }
@@ -525,6 +544,7 @@
     function frame(now) {
       var dt = Math.min((now - last) / 1000, 0.05); last = now; t += dt;
       sway = Math.sin(t * 0.08) * 0.35;
+      pOn += (pTarget - pOn) * 0.08; tiltX += (tiltTX - tiltX) * 0.05; tiltY += (tiltTY - tiltY) * 0.05;
       dz += ((window.__heroDolly || 0) * 3.4 - dz) * 0.12;
       if (t >= nextRelease) { release(t); nextRelease = t + period; }
       draw(t, dt);
@@ -534,6 +554,18 @@
       var should = onScreen && !document.hidden;
       if (should && !running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
       else if (!should && running) { running = false; cancelAnimationFrame(raf); }
+    }
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      var hero = media.parentNode;
+      hero.addEventListener('pointermove', function (e) {
+        var r = media.getBoundingClientRect();
+        ptx = e.clientX - r.left; pty = e.clientY - r.top; pTarget = 1;
+        tiltTX = (ptx / W - 0.5) * 0.7; tiltTY = (pty / H - 0.5) * -24;
+        media.classList.add('is-pointing');
+      });
+      var calm = function () { pTarget = 0; tiltTX = 0; tiltTY = 0; media.classList.remove('is-pointing'); };
+      hero.addEventListener('pointerleave', calm);
+      window.addEventListener('blur', calm);
     }
     // Re-measure whenever the hero itself changes size (fonts loading, content reflow), not only on window resize
     if ('ResizeObserver' in window) new ResizeObserver(function () { resize(); }).observe(media);
@@ -895,10 +927,28 @@
       var num = $('.chapter__num', head), title = $('.chapter__title', head);
       if (num) gsap.fromTo(num, { yPercent: 35, opacity: 0 }, { yPercent: -15, opacity: 1, ease: 'none',
         scrollTrigger: { trigger: head, start: 'top 95%', end: 'bottom 20%', scrub: true } });
-      if (title) gsap.fromTo(title, { clipPath: 'inset(0% 0% 100% 0%)', y: 40 }, {
-        clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.1, ease: EASE, clearProps: 'clipPath,transform',
-        scrollTrigger: { trigger: head, start: 'top 85%', once: true } });
+      if (title) {
+        var tw = splitInto(title, 'word');
+        gsap.from(tw, { yPercent: 70, opacity: 0, duration: 0.9, ease: EASE, stagger: 0.07,
+          scrollTrigger: { trigger: head, start: 'top 85%', once: true } });
+      }
     });
+    // Project screenshots open like a shutter as they scroll in
+    $$('[data-repo]').forEach(function (fig) {
+      gsap.fromTo($('img', fig), { clipPath: 'inset(0% 0% 100% 0%)', scale: 1.06 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, ease: 'none',
+        scrollTrigger: { trigger: fig, start: 'top 90%', end: 'top 45%', scrub: 0.6 } });
+    });
+    // The portrait opens from a slit with a slow zoom-out
+    var portrait = $('.story__portrait img');
+    if (portrait) gsap.fromTo(portrait, { clipPath: 'inset(42% 0% 42% 0%)', scale: 1.22 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, ease: 'none',
+      scrollTrigger: { trigger: portrait, start: 'top 92%', end: 'top 35%', scrub: 0.6 } });
+    // The footer name rises letter by letter
+    var bigname = $('[data-bigname]');
+    if (bigname) {
+      var bc = splitInto(bigname, 'char');
+      gsap.from(bc, { yPercent: 100, opacity: 0, duration: 1, ease: EASE, stagger: 0.04,
+        scrollTrigger: { trigger: bigname, start: 'top 92%', once: true } });
+    }
     var band = $('[data-band]');
     if (band) {
       var accent = band.getAttribute('data-accent');
@@ -1077,6 +1127,79 @@
     });
   }
 
+  /* ---------- Terminal decode: section labels type themselves in, once, as they appear ---------- */
+  function initDecode() {
+    if (prefersReduced || !('IntersectionObserver' in window)) return;
+    var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&/<>_=+';
+    var targets = $$('.label > span, .chapter__kicker > span:first-child, .folio span');
+    targets.forEach(function (el) {
+      var h = el.closest('h2'); if (h && !h.hasAttribute('aria-label')) h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+    });
+    function decode(el) {
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+      while (walker.nextNode()) nodes.push({ n: walker.currentNode, text: walker.currentNode.textContent });
+      var total = nodes.reduce(function (sum, x) { return sum + x.text.length; }, 0), start = performance.now(), dur = 650;
+      (function step(now) {
+        var k = Math.min(1, (now - start) / dur), done = Math.floor(k * total), i = 0;
+        nodes.forEach(function (x) {
+          var out = '';
+          for (var c = 0; c < x.text.length; c++, i++) {
+            var ch = x.text[c];
+            out += (i < done || !/[A-Za-z0-9]/.test(ch)) ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+          }
+          x.n.textContent = out;
+        });
+        if (k < 1) requestAnimationFrame(step);
+        else nodes.forEach(function (x) { x.n.textContent = x.text; });
+      })(start);
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); decode(e.target); } });
+    }, { threshold: 0.6 });
+    // Start after the opening intro, so the first labels decode where they can be seen
+    setTimeout(function () { targets.forEach(function (el) { io.observe(el); }); }, introDelay * 1000);
+  }
+
+  /* ---------- Magnetic buttons: drift a few pixels toward a nearby cursor (fine pointers only) ---------- */
+  function initMagnetic() {
+    if (prefersReduced || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var els = $$('.hero__ctas .btn, .masthead .btn, .to-top'), mx = -1e4, my = -1e4, ticking = false;
+    function apply() {
+      ticking = false;
+      els.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (!r.width) return;
+        var cx = r.left + r.width / 2, cy = r.top + r.height / 2, dx = mx - cx, dy = my - cy;
+        var reach = Math.max(r.width, r.height) / 2 + 48, d = Math.hypot(dx, dy);
+        if (d < reach) {
+          var pull = 0.28 * (1 - d / reach) + 0.12;
+          el.style.translate = Math.max(-10, Math.min(10, dx * pull)).toFixed(1) + 'px ' + Math.max(-8, Math.min(8, dy * pull)).toFixed(1) + 'px';
+        } else if (el.style.translate) el.style.translate = '';
+      });
+    }
+    document.addEventListener('pointermove', function (e) { mx = e.clientX; my = e.clientY; if (!ticking) { ticking = true; requestAnimationFrame(apply); } }, { passive: true });
+    document.addEventListener('pointerleave', function () { mx = my = -1e4; apply(); });
+    window.addEventListener('blur', function () { mx = my = -1e4; apply(); });
+  }
+
+  /* ---------- Footer: live Chennai time; pause decorative loops while off screen ---------- */
+  function initFooter() {
+    var clock = $('[data-clock]');
+    if (clock && window.Intl) {
+      var fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false });
+      var tick = function () {
+        clock.textContent = fmt.format(new Date()) + ' IST';
+        setTimeout(tick, 60000 - (Date.now() % 60000) + 50);
+      };
+      tick();
+    }
+    if (!('IntersectionObserver' in window)) return;
+    [['.footer', 'is-idle'], ['[data-marquee]', 'is-idle']].forEach(function (pair) {
+      var el = $(pair[0]);
+      if (el) new IntersectionObserver(function (e) { el.classList.toggle(pair[1], !e[0].isIntersecting); }).observe(el);
+    });
+  }
+
   /* ---------- Boot ---------- */
   function init() {
     window.__siteReady = true;
@@ -1095,6 +1218,9 @@
     initDeck();
     initToTop();
     initMetrics();
+    initDecode();
+    initMagnetic();
+    initFooter();
 
     var canAnimate = !prefersReduced && window.gsap && window.ScrollTrigger;
     if (canAnimate) {

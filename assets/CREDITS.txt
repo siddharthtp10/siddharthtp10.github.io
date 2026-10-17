@@ -1,0 +1,15 @@
+Credits for siddharthtp10.github.io
+
+Icons
+- Solar Icon Set by 480 Design (https://www.figma.com/community/file/1166831539721848736),
+  licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Used via Iconify.
+- Simple Icons (https://simpleicons.org), CC0 1.0. Brand marks are trademarks of their
+  owners and are shown only to name tools I have used; no endorsement is implied.
+
+Fonts
+- Sora, IBM Plex Sans, IBM Plex Mono: SIL Open Font License 1.1 (see assets/fonts/).
+
+Libraries
+- GSAP and ScrollTrigger (GreenSock standard license), Lenis (MIT).
+
+Screenshots of github.com pages show my own public repositories.
