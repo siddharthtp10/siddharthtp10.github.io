@@ -300,8 +300,20 @@
           if (focus) b.focus();
         }
       });
+      placePill();
       if (window.ScrollTrigger) window.ScrollTrigger.refresh();
     }
+    // A pill behind the tabs slides to the selected one (tabs share one width, so it only translates)
+    var pill = document.createElement('span');
+    pill.className = 'scene-tabs__pill';
+    pill.setAttribute('aria-hidden', 'true');
+    tabs.insertBefore(pill, tabs.firstChild);
+    function placePill() {
+      var on = btns.filter(function (b) { return b.getAttribute('aria-selected') === 'true'; })[0] || btns[0];
+      pill.style.width = on.offsetWidth + 'px';
+      pill.style.transform = 'translateX(' + on.offsetLeft + 'px)';
+    }
+    window.addEventListener('resize', placePill);
     btns.forEach(function (b, i) {
       b.setAttribute('role', 'tab');
       b.id = 'tab-' + b.getAttribute('data-tab');
@@ -318,6 +330,8 @@
       if (sc) sc.addEventListener('scene:loop', function () { if (!chosen) select((i + 1) % btns.length); });
     });
     select(0);
+    // Enable the slide only after the first placement, so the pill doesn't fly in on load
+    requestAnimationFrame(function () { tabs.classList.add('has-pill'); });
   }
 
   /* ---------- Opening intro: a light beam splits the screen open ----------
@@ -767,7 +781,7 @@
     var intro = gsap.timeline({ delay: 0.15 + introDelay });
     intro
       .to('[data-hero-fade].eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: EASE })
-      .from(heroLines, { yPercent: 105, duration: 1, ease: EASE, stagger: 0.09 }, '<0.05')
+      .from(heroLines, { yPercent: 105, duration: 1, ease: EASE, stagger: 0.07 }, '<0.05')
       .to('[data-hero-rule]', { scaleX: 1, duration: 0.8, ease: 'power2.inOut' }, '-=0.6')
       .to('.hero [data-hero-fade]:not(.eyebrow)', { opacity: 1, y: 0, duration: 0.8, ease: EASE, stagger: 0.08 }, '-=0.55');
 
@@ -794,7 +808,7 @@
         var above = els.filter(function (el) { return el.getBoundingClientRect().bottom <= 0; });
         var rest = els.filter(function (el) { return above.indexOf(el) === -1; });
         if (above.length) gsap.set(above, { opacity: 1, y: 0, overwrite: true });
-        if (rest.length) gsap.to(rest, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.12, overwrite: true });
+        if (rest.length) gsap.to(rest, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.06, overwrite: true });
       }
     });
     $$('[data-rule]').forEach(function (r) {
@@ -857,7 +871,7 @@
         scrollTrigger: { trigger: title, start: 'top 80%', once: true }
       });
       gsap.from('.contact__line, .contact__email, .contact__links', {
-        opacity: 0, y: 16, duration: 0.9, ease: EASE, stagger: 0.1,
+        opacity: 0, y: 16, duration: 0.9, ease: EASE, stagger: 0.06,
         scrollTrigger: { trigger: title, start: 'top 75%', once: true }
       });
     }
