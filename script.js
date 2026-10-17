@@ -942,13 +942,6 @@
     var portrait = $('.story__portrait img');
     if (portrait) gsap.fromTo(portrait, { clipPath: 'inset(42% 0% 42% 0%)', scale: 1.22 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, ease: 'none',
       scrollTrigger: { trigger: portrait, start: 'top 92%', end: 'top 35%', scrub: 0.6 } });
-    // The footer name rises letter by letter
-    var bigname = $('[data-bigname]');
-    if (bigname) {
-      var bc = splitInto(bigname, 'char');
-      gsap.from(bc, { yPercent: 100, opacity: 0, duration: 1, ease: EASE, stagger: 0.04,
-        scrollTrigger: { trigger: bigname, start: 'top 92%', once: true } });
-    }
     var band = $('[data-band]');
     if (band) {
       var accent = band.getAttribute('data-accent');
@@ -1182,22 +1175,12 @@
     window.addEventListener('blur', function () { mx = my = -1e4; apply(); });
   }
 
-  /* ---------- Footer: live Chennai time; pause decorative loops while off screen ---------- */
+  /* ---------- Pause the toolkit marquee while it is off screen ---------- */
   function initFooter() {
-    var clock = $('[data-clock]');
-    if (clock && window.Intl) {
-      var fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false });
-      var tick = function () {
-        clock.textContent = fmt.format(new Date()) + ' IST';
-        setTimeout(tick, 60000 - (Date.now() % 60000) + 50);
-      };
-      tick();
+    var el = $('[data-marquee]');
+    if (el && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { el.classList.toggle('is-idle', !e[0].isIntersecting); }).observe(el);
     }
-    if (!('IntersectionObserver' in window)) return;
-    [['.footer', 'is-idle'], ['[data-marquee]', 'is-idle']].forEach(function (pair) {
-      var el = $(pair[0]);
-      if (el) new IntersectionObserver(function (e) { el.classList.toggle(pair[1], !e[0].isIntersecting); }).observe(el);
-    });
   }
 
   /* ---------- Boot ---------- */
