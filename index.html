@@ -73,6 +73,7 @@
       <nav class="nav" aria-label="Primary">
         <a href="#work" data-nav="work">Work</a>
         <a href="#story" data-nav="story">Story</a>
+        <a href="#credentials" data-nav="credentials">Credentials</a>
         <a href="#contact" data-nav="contact">Contact</a>
       </nav>
       <div class="masthead__actions">
@@ -188,7 +189,7 @@
           <span class="metric__more"><span><span class="metric__ctx">At Incedo since August 2021</span></span></span>
         </button></li>
       </ul>
-      <p class="footnote" data-reveal>Production work at Incedo, 2021 to 2025. Hover or tap a figure for the detail.</p>
+      <p class="footnote" data-reveal>Production work at Incedo, Aug 2021 to present. Hover or tap a figure for the detail.</p>
     </section>
 
     <!-- ============ TAGLINE ============ -->
@@ -368,7 +369,7 @@
           <p class="chapter__standfirst">A GitHub Action that reviews infrastructure pull requests before a human has to. Rules decide; AI only advises.</p>
         </header>
         <div class="wrap guardian">
-          <p class="guardian__lede" data-reveal>It runs the added lines of Terraform, Kubernetes, workflow and Dockerfile changes through readable rules and leaves inline comments. Posting on live pull requests is still being verified.</p>
+          <p class="guardian__lede" data-reveal>It runs the added lines of Terraform, Kubernetes, workflow and Dockerfile changes through readable rules and leaves inline comments. It is in active development: the run below is a rules-only dry run, and posting on live pull requests is not shown yet.</p>
           <!-- scenes:guardian -->
           <figure class="rec rec--scene rec--wide" aria-label="Replay of a real PR Guardian run on its example files">
             <div class="rec__frame scene" data-scene data-dur="25.4" data-hold="5">
@@ -479,7 +480,7 @@
           </dl>
           <figure class="bot__fig" data-reveal data-botflow>
             <svg class="bot__svg" viewBox="0 0 720 118" role="img" aria-labelledby="bot-title bot-desc">
-              <title id="bot-title">Fig. 5 — Schematic of the validation bot</title>
+              <title id="bot-title">Fig. 1 — Schematic of the validation bot</title>
               <desc id="bot-desc">A pull request goes to the validation bot, which runs the team’s standards checks and leaves inline review feedback on the pull request.</desc>
               <path d="M140 60 H180 M310 60 H350 M480 60 H520"/>
               <rect class="bot__step" x="10" y="34" width="130" height="52"/><text x="75" y="65" text-anchor="middle">Pull request</text>
@@ -489,7 +490,7 @@
               <path class="bot__rail" d="M75 104 H615"/>
               <circle class="bot__token" cx="75" cy="104" r="5"/>
             </svg>
-            <div class="ms bot__mflow" role="img" aria-label="Fig. 5 — A pull request goes to the validation bot, which runs the team’s standards checks and leaves inline review feedback on the pull request.">
+            <div class="ms bot__mflow" role="img" aria-label="Fig. 1 — A pull request goes to the validation bot, which runs the team’s standards checks and leaves inline review feedback on the pull request.">
               <div class="ms__box"><b>Pull request</b></div><span class="ms__arrow">↓</span>
               <div class="ms__box"><b>Validation bot</b></div><span class="ms__arrow">↓</span>
               <div class="ms__box"><b>Standards checks</b></div><span class="ms__arrow ms__arrow--live">↓</span>
@@ -516,8 +517,8 @@
             <ol class="timeline__list" aria-label="Timeline">
             <li class="timeline__item"><p class="timeline__when">2017 – 2021</p><p>B.Tech, Electrical, Electronics and Communications Engineering, SRM University of Science and Technology</p></li>
             <li class="timeline__item"><p class="timeline__when">Aug 2021</p><p>Joined Incedo as a DevOps Engineer: CI/CD and cloud infrastructure</p></li>
-            <li class="timeline__item"><p class="timeline__when">2021 – 2025</p><p>Led the migration of 15 microservices to Amazon EKS</p></li>
-            <li class="timeline__item"><p class="timeline__when">2021 – 2025</p><p>Moved repositories from Jenkins to GitHub Actions</p></li>
+            <li class="timeline__item"><p class="timeline__when">Aug 2021 – Aug 2025</p><p>Led the migration of 15 microservices to Amazon EKS</p></li>
+            <li class="timeline__item"><p class="timeline__when">Aug 2021 – Aug 2025</p><p>Moved repositories from Jenkins to GitHub Actions</p></li>
             <li class="timeline__item"><p class="timeline__when">Sep 2025 – present</p><p>DevOps Engineer, Platform Automation, Incedo Inc.: EKS operations, access management, deployments</p></li>
             <li class="timeline__item"><p class="timeline__when">2026</p><p>Building the Terraform EKS Platform and PR Guardian in public</p></li>
             </ol>
@@ -534,12 +535,16 @@
           <p class="cert__issuer">The Linux Foundation</p>
           <h3 class="cert__name">Certified Kubernetes Administrator</h3>
           <p class="cert__meta">CKA · Valid to December 2027</p>
+          <!-- TODO: add Credly badge URL for CKA -->
+          <!-- <p class="cert__meta"><a class="link" href="CREDLY_CKA_URL" target="_blank" rel="noopener">Verify on Credly</a></p> -->
         </article>
         <article class="cert" data-reveal>
           <p class="cert__issuer">Amazon Web Services</p>
           <!-- TODO: update after renewal (expires Nov 2026) -->
           <h3 class="cert__name">AWS Certified Solutions Architect – Associate</h3>
           <p class="cert__meta">SAA</p>
+          <!-- TODO: add Credly badge URL for AWS SAA -->
+          <!-- <p class="cert__meta"><a class="link" href="CREDLY_AWS_SAA_URL" target="_blank" rel="noopener">Verify on Credly</a></p> -->
         </article>
       </div>
       <div class="skillmap" data-skillmap data-reveal>
@@ -572,7 +577,7 @@
         <aside class="skillmap__panel" aria-labelledby="skillmap-title">
           <p class="skillmap__title" id="skillmap-title">Where I used it</p>
           <p class="skillmap__hint" data-skillmap-hint>Pick a skill, or a role or project, to see how they connect.</p>
-          <ul class="skillmap__ctx"><li><button type="button" class="ctx" data-ctx-id="a"><b>Incedo · CI/CD &amp; Cloud Infrastructure</b><small>Work · 2021 – 2025</small></button></li><li><button type="button" class="ctx" data-ctx-id="b"><b>Incedo · Platform Automation</b><small>Work · Sep 2025 – present</small></button></li><li><button type="button" class="ctx" data-ctx-id="c"><b>Terraform EKS Platform</b><small>Personal project</small></button></li><li><button type="button" class="ctx" data-ctx-id="d"><b>PR Guardian Action</b><small>Personal project</small></button></li><li><button type="button" class="ctx" data-ctx-id="e"><b>AI pull-request validation bot</b><small>Work project · code private</small></button></li></ul>
+          <ul class="skillmap__ctx"><li><button type="button" class="ctx" data-ctx-id="a"><b>Incedo · CI/CD &amp; Cloud Infrastructure</b><small>Work · Aug 2021 – Aug 2025</small></button></li><li><button type="button" class="ctx" data-ctx-id="b"><b>Incedo · Platform Automation</b><small>Work · Sep 2025 – present</small></button></li><li><button type="button" class="ctx" data-ctx-id="c"><b>Terraform EKS Platform</b><small>Personal project</small></button></li><li><button type="button" class="ctx" data-ctx-id="d"><b>PR Guardian Action</b><small>Personal project</small></button></li><li><button type="button" class="ctx" data-ctx-id="e"><b>AI pull-request validation bot</b><small>Work project · code private</small></button></li></ul>
           <p class="sr-only" aria-live="polite" data-skillmap-status></p>
         </aside>
       </div>
